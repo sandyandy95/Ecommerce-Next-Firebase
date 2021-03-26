@@ -1,5 +1,5 @@
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
-import { red } from "@material-ui/core/colors";
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { red } from '@material-ui/core/colors';
 
 // Create a theme instance.
 const theme = createMuiTheme({
@@ -15,18 +15,18 @@ const theme = createMuiTheme({
   overrides: {
     MuiTab: {
       root: {
-        minWidth: "20%",
-        "@media (min-width:960px)": { minWidth: 82 },
+        minWidth: '20%',
+        '@media (min-width:960px)': { minWidth: 82 },
       },
     },
     MuiPaper: {
       root: {
-        border: "none",
-        outline: "none",
+        border: 'none',
+        outline: 'none',
       },
       elevation1: {
         boxShadow:
-          " 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.14)",
+          ' 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.14)',
       },
     },
     MuiDivider: {
@@ -35,96 +35,96 @@ const theme = createMuiTheme({
         marginBottom: 8,
       },
     },
-    MuiPickersBasePicker: { pickerView: { backgroundColor: "white" } },
-    MuiDialogActions: { root: { background: "white" } },
+    MuiPickersBasePicker: { pickerView: { backgroundColor: 'white' } },
+    MuiDialogActions: { root: { background: 'white' } },
     MuiPickersDay: {
       day: {
-        color: "black",
-        backgroundColor: "white",
-        borderRadius: "0px",
+        color: 'black',
+        backgroundColor: 'white',
+        borderRadius: '0px',
       },
       daySelected: {
-        backgroundColor: "",
-        color: "#B29602",
+        backgroundColor: '',
+        color: '#B29602',
       },
-      dayDisabled: { color: "#a0a3a6" },
-      current: { color: "#ffcb05" },
+      dayDisabled: { color: '#a0a3a6' },
+      current: { color: '#ffcb05' },
     },
   },
   typography: {
-    fontFamily: ["Nunito", "Roboto", "sans-serif"],
-    fontStyle: "normal",
-    h1: { color: "#000" },
-    h2: { color: "#000" },
-    h3: { color: "#000" },
-    h4: { color: "#000" },
+    fontFamily: ['Nunito', 'Roboto', 'sans-serif'],
+    fontStyle: 'normal',
+    h1: { color: '#000' },
+    h2: { color: '#000' },
+    h3: { color: '#000' },
+    h4: { color: '#000' },
     h5: {
       fontSize: 20,
-      fontWeight: "normal",
+      fontWeight: 'normal',
       // lineHeight: "32px",
     },
     h6: {
-      color: "#000",
+      color: '#000',
       fontSize: 18,
-      fontWeight: "600",
+      fontWeight: '600',
       // lineHeight: "32px",
     },
     body1: {
-      color: "#020202",
+      color: '#020202',
       fontSize: 16,
-      fontWeight: "normal",
+      fontWeight: 'normal',
       // lineHeight: "24px",
     },
     body2: {
       fontSize: 14,
-      color: "#020202",
-      fontWeight: "normal",
+      color: '#020202',
+      fontWeight: 'normal',
       // lineHeight: "20px",
     },
     subtitle1: {
       fontSize: 16,
-      color: "#020202",
-      fontWeight: "600",
+      color: '#020202',
+      fontWeight: '600',
       // lineHeight: "28px",
     },
     subtitle2: {
       fontSize: 14,
-      color: "#020202",
-      fontWeight: "500",
+      color: '#020202',
+      fontWeight: '500',
       // lineHeight: "21px",
     },
     button: {
       fontSize: 14,
-      fontWeight: "600",
+      fontWeight: '600',
     },
   },
 
   palette: {
     primary: {
-      main: "#051438",
-      dark: "#000014",
-      light: "#333962",
-      contrastText: "#FFFFFF",
+      main: '#051438',
+      dark: '#000014',
+      light: '#333962',
+      contrastText: '#FFFFFF',
     },
     secondary: {
-      main: "#f20020",
-      dark: "#b60000",
-      light: "#ff574b",
-      contrastText: "#FFFFFF",
+      main: '#f20020',
+      dark: '#b60000',
+      light: '#ff574b',
+      contrastText: '#FFFFFF',
     },
     action: {
-      hover: "rgb(0,0,0,0.04)",
-      selectedOpacity: "rgb(0,0,0,0.08)",
-      disabledBackground: "rgba(0,0,0,0.12)",
+      hover: 'rgb(0,0,0,0.04)',
+      selectedOpacity: 'rgb(0,0,0,0.08)',
+      disabledBackground: 'rgba(0,0,0,0.12)',
     },
-    background: "#fff",
+    background: '#fff',
     error: { main: red.A400 },
     text: {
-      primary: "rgba(0,0,0,0.87)",
-      secondary: "rgba(0,0,0,0.54)",
-      disabled: "rgba(0,0,0,0.38)",
+      primary: 'rgba(0,0,0,0.87)',
+      secondary: 'rgba(0,0,0,0.54)',
+      disabled: 'rgba(0,0,0,0.38)',
     },
-    gray: "#E0E0E0",
+    gray: '#E0E0E0',
   },
 });
 
