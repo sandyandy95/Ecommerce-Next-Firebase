@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+**/node_modules/
 
 # testing
 /coverage
@@ -33,3 +34,8 @@ yarn.lock
 
 # vercel
 .vercel
+
+# locks
+**/*-lock.json
+# export develop data
+**/dir
