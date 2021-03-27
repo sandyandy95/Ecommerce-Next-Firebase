@@ -47,22 +47,26 @@ const theme = createMuiTheme({
     body1: {
       color: '#020202',
       fontSize: 16,
+      marginBottom: 8,
       fontWeight: 'normal',
     },
     body2: {
       fontSize: 14,
       color: '#020202',
+      marginBottom: 8,
       fontWeight: 'normal',
     },
     subtitle1: {
       fontSize: 16,
       color: '#020202',
+      marginBottom: 8,
       fontWeight: '600',
     },
     subtitle2: {
       fontSize: 14,
       color: '#020202',
       fontWeight: '500',
+      marginBottom: 8,
     },
     button: {
       fontSize: 14,

@@ -1,8 +1,6 @@
 import {
   Avatar,
-  Button,
   Card,
-  CardActionArea,
   CardActions,
   CardContent,
   CardHeader,
@@ -15,7 +13,14 @@ import styles from './styles';
 
 const useStyles = makeStyles(styles);
 
-const CardProduct = ({ name, price, description, photoURL, seller }) => {
+const CardProduct = ({
+  name,
+  price,
+  description,
+  photoURL,
+  seller,
+  actions,
+}) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -43,27 +48,25 @@ const CardProduct = ({ name, price, description, photoURL, seller }) => {
         <Typography>{description}</Typography>
         <Typography variant="caption">{description}</Typography>
       </CardContent>
-      <CardActions>
-        <Button variant="outlined">Comprar</Button>
-        <Button>Ver más</Button>
-      </CardActions>
+      <CardActions>{actions}</CardActions>
     </Card>
   );
 };
 
 CardProduct.propTypes = {
   name: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   description: PropTypes.string,
   photoURL: PropTypes.string,
   seller: PropTypes.shape({
     name: PropTypes.string,
     photoURL: PropTypes.string,
   }),
+  actions: PropTypes.element.isRequired,
 };
 CardProduct.defaultProps = {
   name: '',
-  price: '',
+  price: 0,
   description: '',
   photoURL: '',
   seller: {
