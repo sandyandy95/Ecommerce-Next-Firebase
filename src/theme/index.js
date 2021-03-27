@@ -18,6 +18,19 @@ const theme = createMuiTheme({
         marginBottom: 8,
       },
     },
+    MuiCard: {
+      root: {
+        overflow: 'initial',
+        marginBottom: 16,
+      },
+    },
+    MuiCardActions: {
+      root: {
+        display: 'flex',
+        paddingBottom: 16,
+        justifyContent: 'space-evenly',
+      },
+    },
   },
   typography: {
     fontFamily: ['Roboto', 'sans-serif'],

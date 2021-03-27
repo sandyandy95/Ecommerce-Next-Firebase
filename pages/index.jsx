@@ -1,9 +1,4 @@
-import { Button } from '@material-ui/core';
-import { helloWorld } from '../src/services/functions';
+import Home from '../src/screens/Home';
 
-const Page = () => (
-  <div>
-    <Button onClick={() => helloWorld()}>Test Function</Button>
-  </div>
-);
+const Page = () => <Home />;
 export default Page;
