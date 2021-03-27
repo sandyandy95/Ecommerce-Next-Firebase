@@ -1,8 +1,9 @@
-import { Typography } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import { helloWorld } from '../src/services/functions';
 
 const Page = () => (
   <div>
-    <Typography variant="h1">Index</Typography>
+    <Button onClick={() => helloWorld()}>Test Function</Button>
   </div>
 );
 export default Page;
