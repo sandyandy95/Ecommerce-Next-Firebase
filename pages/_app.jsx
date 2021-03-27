@@ -24,10 +24,13 @@ export default function MyApp(props) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        <link rel="stylesheet" href="/globals.css" />
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Component {...pageProps} />
+        <main>
+          <Component {...pageProps} />
+        </main>
       </ThemeProvider>
     </>
   );
