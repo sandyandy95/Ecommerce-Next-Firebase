@@ -18,7 +18,7 @@ const MainNav = () => {
     { href: '/pedidos/anteriores', label: 'pedidos anteriores' },
   ];
   return (
-    <AppBar position="sticky" top="0px">
+    <AppBar position="sticky" top="0px" component={Box} mb={3}>
       <Toolbar>
         <Box display="flex" flex={1} alignItems="center">
           <Hidden smUp>

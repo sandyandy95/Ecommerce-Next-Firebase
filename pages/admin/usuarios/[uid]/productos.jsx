@@ -1,8 +1,4 @@
-import { Typography } from '@material-ui/core';
+import Products from '../../../../src/screens/Products';
 
-const Page = () => (
-  <div>
-    <Typography variant="h1">Listar productos</Typography>
-  </div>
-);
+const Page = () => <Products />;
 export default Page;

@@ -3,16 +3,19 @@ import MUIDataTable from 'mui-datatables';
 import { Visibility } from '@material-ui/icons';
 import ContainerResponsive from '../../components/Container';
 import useUsers from '../../hooks/useUsers';
+import NextLink from '../../components/NextLink';
 
 const columns = [
   {
     name: 'uid',
     label: 'Acciones',
     options: {
-      customBodyRender: () => (
-        <IconButton>
-          <Visibility />
-        </IconButton>
+      customBodyRender: (uid) => (
+        <NextLink href={`/admin/usuarios/${uid}/productos`}>
+          <IconButton>
+            <Visibility />
+          </IconButton>
+        </NextLink>
       ),
     },
   },
