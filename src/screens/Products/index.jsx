@@ -13,6 +13,17 @@ const Products = () => {
   const { seller, products } = useSellerProducts({ uid });
   return (
     <ContainerResponsive>
+      <Button
+        component={Box}
+        variant="contained"
+        position="sticky"
+        top={80}
+        zIndex={1200}
+        width={125}
+        alignSelf="flex-end"
+      >
+        Agregar
+      </Button>
       <Box
         display="flex"
         alignItems="center"

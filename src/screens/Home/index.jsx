@@ -1,7 +1,6 @@
 import { Box, Button, Typography } from '@material-ui/core';
 import CardProduct from '../../components/Card';
 import ContainerResponsive from '../../components/Container';
-import NextLink from '../../components/NextLink';
 import useCart from '../../hooks/useCart';
 import useProducts from '../../hooks/useProducts';
 import useUser from '../../hooks/useUser';
@@ -13,11 +12,8 @@ const Home = () => {
   return (
     <ContainerResponsive>
       <h1>Home</h1>
-
       <Typography>{`Bienvenido, ${user.displayName}`}</Typography>
-      <NextLink href="/carrito">
-        <Button fullWidth={false}>Ver Carrito</Button>
-      </NextLink>
+
       <Box display="flex" flexWrap="wrap" justifyContent="space-evenly">
         {products.map((product) => (
           <CardProduct
