@@ -10,7 +10,7 @@ const Resumen = ({ subtotal, sellers, totalProducts, onBuy }) => {
   );
   const deliveryDate = new Date().toDateString();
   return (
-    <Box component="section" p={4} position="sticky" top="10px">
+    <Box component="section" p={4} position="sticky" top="56px">
       <Typography gutterBottom variant="h5">
         <b>Resumen de la compra</b>
       </Typography>
@@ -23,11 +23,11 @@ const Resumen = ({ subtotal, sellers, totalProducts, onBuy }) => {
       </Tooltip>
       <Box display="flex" justifyContent="space-between">
         <Typography>Subtotal</Typography>
-        <Typography>{subtotal}</Typography>
+        <Typography>{`$${subtotal}`}</Typography>
       </Box>
       <Box display="flex" justifyContent="space-between" mb={4}>
         <Typography variant="h6">Total</Typography>
-        <Typography variant="h6">{total}</Typography>
+        <Typography variant="h6">{`$${total.toFixed(2)}`}</Typography>
       </Box>
       <Button variant="contained" color="primary" fullWidth onClick={onBuy}>
         Comprar

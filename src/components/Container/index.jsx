@@ -1,6 +1,7 @@
 import { Container, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+import MainNav from '../../nav';
 import styles from './styles';
 
 const useStyles = makeStyles(styles);
@@ -14,6 +15,7 @@ const ContainerResponsive = ({ children, center, ...props }) => {
       })}
       {...props}
     >
+      <MainNav />
       {children}
     </Container>
   );
