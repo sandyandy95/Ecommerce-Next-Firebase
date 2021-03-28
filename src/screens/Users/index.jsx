@@ -1,4 +1,4 @@
-import { Box, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import MUIDataTable from 'mui-datatables';
 import { Visibility } from '@material-ui/icons';
 import ContainerResponsive from '../../components/Container';
@@ -9,7 +9,7 @@ const columns = [
     name: 'uid',
     label: 'Acciones',
     options: {
-      customBodyRender: (uid) => (
+      customBodyRender: () => (
         <IconButton>
           <Visibility />
         </IconButton>

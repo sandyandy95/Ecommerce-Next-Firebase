@@ -12,7 +12,6 @@ import NextLink from '../components/NextLink';
 
 const MainNav = () => {
   const routes = [
-    { href: '/', label: 'home' },
     { href: '/carrito', label: 'carrito' },
     { href: '/admin/usuarios', label: 'admin' },
     { href: '/pedidos', label: 'pedidos' },
@@ -25,7 +24,11 @@ const MainNav = () => {
           <Hidden smUp>
             <Menu />
           </Hidden>
-          <Typography variant="h4">Cris Eats</Typography>
+          <NextLink href="/">
+            <Typography style={{ cursor: 'pointer' }} variant="h4">
+              Ecommerce
+            </Typography>
+          </NextLink>
         </Box>
         <Hidden xsDown>
           {routes.map((item) => (
