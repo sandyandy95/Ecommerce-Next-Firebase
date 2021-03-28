@@ -16,10 +16,10 @@ const MainNav = () => {
     { href: '/carrito', label: 'carrito' },
     { href: '/admin/usuarios', label: 'admin' },
     { href: '/pedidos', label: 'pedidos' },
-    { href: '/pedidos-anteriores', label: 'pedidos anteriores' },
+    { href: '/pedidos/anteriores', label: 'pedidos anteriores' },
   ];
   return (
-    <AppBar>
+    <AppBar position="sticky" top="0px">
       <Toolbar>
         <Box display="flex" flex={1} alignItems="center">
           <Hidden smUp>

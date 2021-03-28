@@ -1,8 +1,4 @@
-import { Typography } from '@material-ui/core';
+import Users from '../../../src/screens/Users';
 
-const Page = () => (
-  <div>
-    <Typography variant="h1">Listar Usuarios</Typography>
-  </div>
-);
+const Page = () => <Users />;
 export default Page;

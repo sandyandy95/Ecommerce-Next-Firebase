@@ -9,15 +9,17 @@ const useStyles = makeStyles(styles);
 const ContainerResponsive = ({ children, center, ...props }) => {
   const classes = useStyles();
   return (
-    <Container
-      className={clsx(classes.root, {
-        [classes.center]: center,
-      })}
-      {...props}
-    >
+    <>
       <MainNav />
-      {children}
-    </Container>
+      <Container
+        className={clsx(classes.root, {
+          [classes.center]: center,
+        })}
+        {...props}
+      >
+        {children}
+      </Container>
+    </>
   );
 };
 
