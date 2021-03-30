@@ -7,30 +7,17 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import {
-  AvTimer,
-  LocalMall,
-  Menu,
-  ShoppingCart,
-  SupervisorAccount,
-} from '@material-ui/icons';
+import { Menu } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import NextLink from '../components/NextLink';
+import useUser from '../hooks/useUser';
 import DrawerNav from './Drawer';
-// import PropTypes from 'prop-types';
+import _routes from './routes';
 
 const MainNav = ({ disableNav }) => {
-  const routes = [
-    { href: '/carrito', label: 'carrito', icon: <ShoppingCart /> },
-    { href: '/admin/usuarios', label: 'admin', icon: <SupervisorAccount /> },
-    { href: '/pedidos', label: 'pedidos', icon: <LocalMall /> },
-    {
-      href: '/pedidos/anteriores',
-      label: 'pedidos anteriores',
-      icon: <AvTimer />,
-    },
-  ];
+  const { user } = useUser();
+  const routes = _routes({ uid: user.uid });
   const [open, setOpen] = useState(false);
   return (
     <AppBar position="sticky" top="0px" component={Box} mb={3}>
@@ -43,7 +30,7 @@ const MainNav = ({ disableNav }) => {
               </IconButton>
             </Hidden>
           )}
-          <NextLink href="/">
+          <NextLink href="/" scroll>
             <Typography style={{ cursor: 'pointer' }} variant="h4">
               Ecommerce
             </Typography>
@@ -52,7 +39,7 @@ const MainNav = ({ disableNav }) => {
         {!disableNav && (
           <Hidden xsDown>
             {routes.map((item) => (
-              <NextLink key={item.href} href={item.href}>
+              <NextLink key={item.href} href={item.href} as={item.as || ''}>
                 <Button color="inherit" style={{ margin: 'auto' }}>
                   {item.label}
                 </Button>

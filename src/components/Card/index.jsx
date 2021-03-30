@@ -68,7 +68,7 @@ CardProduct.propTypes = {
     name: PropTypes.string,
     photoURL: PropTypes.string,
   }),
-  actions: PropTypes.element.isRequired,
+  actions: PropTypes.element,
   minWidth: PropTypes.bool,
 };
 CardProduct.defaultProps = {
@@ -81,5 +81,6 @@ CardProduct.defaultProps = {
     photoURL: '',
   },
   minWidth: false,
+  actions: <></>,
 };
 export default CardProduct;
