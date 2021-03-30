@@ -8,6 +8,7 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -20,10 +21,15 @@ const CardProduct = ({
   photoURL,
   seller,
   actions,
+  minWidth,
 }) => {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
+    <Card
+      className={clsx(classes.root, {
+        [classes.minWidth]: minWidth,
+      })}
+    >
       <CardHeader
         avatar={
           seller.photoURL ? (
@@ -38,7 +44,7 @@ const CardProduct = ({
         subheader={`$ ${price}`}
       />
       <CardMedia
-        className={classes.media}
+        className={clsx(classes.media, { [classes.minMedia]: minWidth })}
         component="img"
         alt={name}
         image={photoURL}
@@ -63,6 +69,7 @@ CardProduct.propTypes = {
     photoURL: PropTypes.string,
   }),
   actions: PropTypes.element.isRequired,
+  minWidth: PropTypes.bool,
 };
 CardProduct.defaultProps = {
   name: '',
@@ -73,5 +80,6 @@ CardProduct.defaultProps = {
     name: '',
     photoURL: '',
   },
+  minWidth: false,
 };
 export default CardProduct;

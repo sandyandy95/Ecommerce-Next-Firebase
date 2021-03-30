@@ -31,6 +31,11 @@ const theme = createMuiTheme({
         justifyContent: 'space-evenly',
       },
     },
+    MuiButton: {
+      root: {
+        marginBottom: 16,
+      },
+    },
   },
   typography: {
     fontFamily: ['Roboto', 'sans-serif'],

@@ -1,17 +1,19 @@
 import { Avatar, Box, IconButton, Typography } from '@material-ui/core';
 import { Visibility } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
+import { useState } from 'react';
 import ContainerResponsive from '../../components/Container';
 import useOrders from '../../hooks/useOrders';
+import OrderModal from '../PastOrders/Modal';
 
-const columns = [
+const columns = ({ handleDetails }) => [
   {
     name: 'id',
     label: 'Acciones',
     options: {
       // eslint-disable-next-line react/prop-types
       customBodyRender: (id) => (
-        <IconButton onClick={() => alert(id)}>
+        <IconButton onClick={() => handleDetails(id)}>
           <Visibility />
         </IconButton>
       ),
@@ -50,6 +52,13 @@ const columns = [
 
 const Order = () => {
   const { orders } = useOrders();
+  const [modal, setModal] = useState({ open: false, selectedOrder: {} });
+  const handleDetails = (_id) =>
+    setModal({
+      open: true,
+      selectedOrder: orders.find(({ id }) => id === _id),
+    });
+  const handleClose = () => setModal({ open: false, selectedOrder: {} });
 
   return (
     <ContainerResponsive>
@@ -57,7 +66,7 @@ const Order = () => {
       <MUIDataTable
         title="Lista de compras"
         data={orders}
-        columns={columns}
+        columns={columns({ handleDetails })}
         options={{
           selectableRows: 'none',
           responsive: 'standard',
@@ -68,6 +77,7 @@ const Order = () => {
           selectableRowsHeader: false,
         }}
       />
+      <OrderModal handleClose={handleClose} {...modal} />
     </ContainerResponsive>
   );
 };

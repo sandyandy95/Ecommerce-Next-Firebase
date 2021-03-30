@@ -6,11 +6,11 @@ import styles from './styles';
 
 const useStyles = makeStyles(styles);
 
-const ContainerResponsive = ({ children, center, ...props }) => {
+const ContainerResponsive = ({ children, center, disableNav, ...props }) => {
   const classes = useStyles();
   return (
     <>
-      <MainNav />
+      <MainNav disableNav={disableNav} />
       <Container
         className={clsx(classes.root, {
           [classes.center]: center,
@@ -27,9 +27,11 @@ ContainerResponsive.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   children: PropTypes.any.isRequired,
   center: PropTypes.bool,
+  disableNav: PropTypes.bool,
 };
 ContainerResponsive.defaultProps = {
   center: false,
+  disableNav: false,
 };
 
 export default ContainerResponsive;

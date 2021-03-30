@@ -29,12 +29,12 @@ Input.propTypes = {
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   helperText: PropTypes.string,
-  className: PropTypes.shape(),
+  className: PropTypes.string,
   error: PropTypes.bool,
 };
 Input.defaultProps = {
   variant: 'outline',
-  className: {},
+  className: '',
   helperText: '',
   value: '',
   label: '',

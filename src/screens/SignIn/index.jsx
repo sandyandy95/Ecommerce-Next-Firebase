@@ -1,15 +1,63 @@
-import { Button } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
+import { useFormik } from 'formik';
 import ContainerResponsive from '../../components/Container';
 import Input from '../../components/Input';
+import { LoginSchema } from '../../utils/schemas';
 
-const SignIn = () => (
-  <ContainerResponsive center>
-    <form style={{ display: 'flex', flexDirection: 'column' }}>
-      <Input label="Correo electrónico" />
-      <Input label="Password" />
-      <Button>Iniciar sesion</Button>
-    </form>
-  </ContainerResponsive>
-);
+const SignIn = () => {
+  const { values, errors, handleSubmit, handleChange } = useFormik({
+    initialValues: { email: '', password: '' },
+    validationSchema: LoginSchema,
+    onSubmit: () => console.log(values),
+  });
+  return (
+    <ContainerResponsive center disableNav>
+      <Typography variant="h3" color="primary">
+        Bienvenido
+      </Typography>
+      <Typography variant="h4" color="secondary">
+        Inicia sesión
+      </Typography>
+      <Box
+        component="form"
+        display="flex"
+        flexDirection="column"
+        m={3}
+        onSubmit={handleSubmit}
+        width="50%"
+        minWidth={280}
+      >
+        <Input
+          id="email"
+          name="email"
+          label="Correo electrónico"
+          onChange={handleChange}
+          value={values.email}
+          error={Boolean(errors.email)}
+          helperText={errors.email}
+          color="secondary"
+        />
+        <Input
+          id="password"
+          name="password"
+          label="Password"
+          onChange={handleChange}
+          value={values.password}
+          error={Boolean(errors.password)}
+          helperText={errors.password}
+        />
+        <Button type="submit" variant="contained" color="secondary">
+          Iniciar sesion
+        </Button>
+      </Box>
+      <Button variant="contained" color="secondary">
+        Ingresar con Google
+      </Button>
+      <Button variant="contained" color="primary">
+        Ingresar con Facebook
+      </Button>
+    </ContainerResponsive>
+  );
+};
 
 export default SignIn;

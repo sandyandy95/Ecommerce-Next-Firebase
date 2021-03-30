@@ -7,10 +7,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
+import PropTypes from 'prop-types';
 import NextLink from '../components/NextLink';
 // import PropTypes from 'prop-types';
 
-const MainNav = () => {
+const MainNav = ({ disableNav }) => {
   const routes = [
     { href: '/carrito', label: 'carrito' },
     { href: '/admin/usuarios', label: 'admin' },
@@ -21,26 +22,31 @@ const MainNav = () => {
     <AppBar position="sticky" top="0px" component={Box} mb={3}>
       <Toolbar>
         <Box display="flex" flex={1} alignItems="center">
-          <Hidden smUp>
-            <Menu />
-          </Hidden>
+          {!disableNav && (
+            <Hidden smUp>
+              <Menu />
+            </Hidden>
+          )}
           <NextLink href="/">
             <Typography style={{ cursor: 'pointer' }} variant="h4">
               Ecommerce
             </Typography>
           </NextLink>
         </Box>
-        <Hidden xsDown>
-          {routes.map((item) => (
-            <NextLink key={item.href} href={item.href}>
-              <Button color="inherit">{item.label}</Button>
-            </NextLink>
-          ))}
-        </Hidden>
+        {!disableNav && (
+          <Hidden xsDown>
+            {routes.map((item) => (
+              <NextLink key={item.href} href={item.href}>
+                <Button color="inherit">{item.label}</Button>
+              </NextLink>
+            ))}
+          </Hidden>
+        )}
       </Toolbar>
     </AppBar>
   );
 };
-MainNav.propTypes = {};
-MainNav.defaultProps = {};
+MainNav.propTypes = {
+  disableNav: PropTypes.bool.isRequired,
+};
 export default MainNav;
