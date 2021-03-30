@@ -53,7 +53,9 @@ const MainNav = ({ disableNav }) => {
           <Hidden xsDown>
             {routes.map((item) => (
               <NextLink key={item.href} href={item.href}>
-                <Button color="inherit">{item.label}</Button>
+                <Button color="inherit" style={{ margin: 'auto' }}>
+                  {item.label}
+                </Button>
               </NextLink>
             ))}
           </Hidden>
