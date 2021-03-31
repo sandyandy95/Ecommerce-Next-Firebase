@@ -1,9 +1,9 @@
 import { Avatar, Box, Button, Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import CardProduct from '../../components/Card';
-import ContainerResponsive from '../../components/Container';
-import useSellerProducts from '../../hooks/useSellerProducts';
+import CardProduct from '#Components/Card';
+import ContainerResponsive from '#Components/Container';
+import useSellerProducts from '#hooks/useSellerProducts';
 import ProductModal from './Modal';
 // import PropTypes from 'prop-types';
 

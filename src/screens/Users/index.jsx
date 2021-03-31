@@ -1,9 +1,9 @@
 import { IconButton } from '@material-ui/core';
 import MUIDataTable from 'mui-datatables';
 import { Visibility } from '@material-ui/icons';
-import ContainerResponsive from '../../components/Container';
-import useUsers from '../../hooks/useUsers';
-import NextLink from '../../components/NextLink';
+import ContainerResponsive from '#Components/Container';
+import useUsers from '#hooks/useUsers';
+import NextLink from '#Components/NextLink';
 
 const columns = [
   {

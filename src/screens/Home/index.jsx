@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from '@material-ui/core';
-import CardProduct from '../../components/Card';
-import ContainerResponsive from '../../components/Container';
-import useCart from '../../hooks/useCart';
-import useProducts from '../../hooks/useProducts';
-import useUser from '../../hooks/useUser';
+import CardProduct from '#Components/Card';
+import ContainerResponsive from '#Components/Container';
+import useCart from '#hooks/useCart';
+import useProducts from '#hooks/useProducts';
+import useUser from '#hooks/useUser';
 
 const Home = () => {
   const { user } = useUser();

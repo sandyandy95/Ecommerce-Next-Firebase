@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from '@material-ui/core';
 import { useFormik } from 'formik';
-import ContainerResponsive from '../../components/Container';
-import Input from '../../components/Input';
+import ContainerResponsive from '#Components/Container';
+import Input from '#Components/Input';
 import { LoginSchema } from '../../utils/schemas';
 
 const SignIn = () => {

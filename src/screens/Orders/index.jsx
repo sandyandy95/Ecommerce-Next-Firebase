@@ -2,8 +2,8 @@ import { Avatar, Box, IconButton, Typography } from '@material-ui/core';
 import { Visibility } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
 import { useState } from 'react';
-import ContainerResponsive from '../../components/Container';
-import useOrders from '../../hooks/useOrders';
+import ContainerResponsive from '#Components/Container';
+import useOrders from '#hooks/useOrders';
 import OrderModal from '../PastOrders/Modal';
 
 const columns = ({ handleDetails }) => [
@@ -62,7 +62,7 @@ const Order = () => {
 
   return (
     <ContainerResponsive>
-      <h1>Pedidos del usuario</h1>
+      <h1>Pedidos del pendientes</h1>
       <MUIDataTable
         title="Lista de compras"
         data={orders}
