@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { SnackbarProvider } from 'notistack';
 
 import theme from '../src/theme';
 import Context from '../src/context/index';
@@ -21,18 +22,17 @@ export default function MyApp(props) {
     <>
       <Head>
         <title>E-commerce</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         <link rel="stylesheet" href="/globals.css" />
       </Head>
       <Context>
         <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <main>
-            <Component {...pageProps} />
-          </main>
+          <SnackbarProvider>
+            <CssBaseline />
+            <main>
+              <Component {...pageProps} />
+            </main>
+          </SnackbarProvider>
         </ThemeProvider>
       </Context>
     </>

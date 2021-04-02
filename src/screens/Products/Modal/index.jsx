@@ -4,31 +4,35 @@ import { useFormik } from 'formik';
 import ModalContainer from '../../../components/ModalContainer';
 import Input from '../../../components/Input';
 import { ProductSchema } from '../../../utils/schemas';
+import InputFile from '#Components/InputFile';
+import useProducts from '#hooks/useProducts';
 
-const ProductModal = ({ data, handleClose }) => {
+const ProductModal = ({ data, handleClose, onSubmit }) => {
   const isEditting = Boolean(data.selectedProduct);
+  const { createProductInDB } = useProducts();
 
-  const initialValues = data.selectedProduct || {
-    name: '',
-    photoURL: '',
-    description: '',
-    price: 0,
-  };
-
-  const { values, errors, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    onSubmit: () => {
-      alert(`Guardando... ${JSON.stringify(values)}`);
-      handleClose();
+  const { values, errors, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
+    initialValues: data.selectedProduct,
+    onSubmit: async () => {
+      await createProductInDB({
+        product: values,
+        callback: (val) => {
+          onSubmit(val);
+          resetForm();
+        },
+      });
     },
     enableReinitialize: true,
     validationSchema: ProductSchema,
   });
-
+  const closeModal = () => {
+    handleClose();
+    resetForm();
+  };
   return (
     <ModalContainer
       open={data.open}
-      handleClose={handleClose}
+      handleClose={closeModal}
       title={`${isEditting ? 'Editar' : 'Agregar'} producto`}
       description="Agrega los detalles del producto"
       fullWidth
@@ -65,6 +69,7 @@ const ProductModal = ({ data, handleClose }) => {
           helperText={errors.price}
           fullWidth
         />
+        <InputFile id="photoURL" name="photoURL" value={values.photoURL} onChange={(value) => setFieldValue('photoURL', value)} helperText={errors.photoURL} />
         <Button variant="contained" color="secondary" type="submit">
           Guardar
         </Button>
@@ -76,7 +81,20 @@ ProductModal.propTypes = {
   data: PropTypes.shape({
     open: PropTypes.bool,
     selectedProduct: PropTypes.shape({}),
-  }).isRequired,
+  }),
   handleClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
+
+ProductModal.defaultProps = {
+  data: {
+    open: false,
+    selectedProduct: {
+      name: '',
+      photoURL: '',
+      description: '',
+      price: 0,
+    },
+  },
 };
 export default ProductModal;

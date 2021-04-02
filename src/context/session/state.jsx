@@ -11,12 +11,7 @@ const SessionState = ({ children }) => {
   const initialState = getLocalStorage('session', { user: {}, session: {} });
 
   const [state, dispatch] = useReducer(SessionReducer, initialState);
-  const {
-    withEmail,
-    signOut: _signOut,
-    withFacebook,
-    withGoogle,
-  } = useSignIn();
+  const { withEmail, signOut: _signOut, withFacebook, withGoogle } = useSignIn();
   const { replace } = useRouter();
 
   const signIn = async (type, email, password) => {
@@ -51,7 +46,7 @@ const SessionState = ({ children }) => {
       }
     } catch (error) {
       // eslint-disable-next-line no-alert
-      alert('Error al realizar login');
+      alert(error);
     }
   };
   const signOut = async () => {
@@ -62,7 +57,13 @@ const SessionState = ({ children }) => {
   };
 
   return (
-    <SessionContext.Provider value={{ state, signIn, signOut }}>
+    <SessionContext.Provider
+      value={{
+        state,
+        signIn,
+        signOut,
+      }}
+    >
       {children}
     </SessionContext.Provider>
   );

@@ -1,4 +1,5 @@
 import { getUserById } from '../../../../src/services/server/user/db';
+import { getProductsById } from '#src/services/server/products/db';
 import Products from '../../../../src/screens/Products';
 
 const Page = () => <Products />;
@@ -15,9 +16,13 @@ export const getServerSideProps = async (ctx) => {
   }
   try {
     const user = await getUserById(uid);
+    const products = await getProductsById(uid);
 
     return {
-      props: { user: JSON.parse(JSON.stringify(user)) },
+      props: {
+        user: JSON.parse(JSON.stringify(user)),
+        products: JSON.parse(JSON.stringify(products)),
+      },
     };
   } catch (error) {
     res.statusCode = 302;

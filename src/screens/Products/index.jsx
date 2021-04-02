@@ -1,26 +1,33 @@
 import { Avatar, Box, Button, Typography } from '@material-ui/core';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import CardProduct from '#Components/Card';
 import ContainerResponsive from '#Components/Container';
-import useSellerProducts from '#hooks/useSellerProducts';
 import ProductModal from './Modal';
+import useProducts from '#hooks/useProducts';
 
-const Products = ({ user }) => {
-  const router = useRouter();
-  const {
-    query: { uid },
-  } = router;
-  const { products } = useSellerProducts({ uid });
+const Products = ({ products: _products, user }) => {
+  const { deleteProductInDB } = useProducts(_products);
+  const [products, setProducts] = useState(_products);
+
   const [modal, setModal] = useState({
     open: false,
-    selectedProduct: null,
+    selectedProduct: {},
   });
-  const handleOpen = (selectedProduct = null) =>
+  const handleOpen = (selectedProduct = {}) => {
     setModal({ open: true, selectedProduct });
+  };
+  const handleClose = () => setModal({ open: false, selectedProduct: {} });
 
-  const handleClose = () => setModal({ open: false, selectedProduct: null });
+  const deleteProduct = async (product) => {
+    await deleteProductInDB({ ...product });
+    setProducts((bef) => bef.filter((item) => item.id !== product.id));
+  };
+  const onSubmit = (data) => {
+    setProducts((bef) => [data, ...bef]);
+    handleClose();
+  };
+
   return (
     <>
       <ContainerResponsive>
@@ -37,18 +44,8 @@ const Products = ({ user }) => {
         >
           Agregar
         </Button>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          flexDirection="column"
-        >
-          <Avatar
-            src={user.photoURL}
-            component={Box}
-            width={120}
-            height={120}
-          />
+        <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+          <Avatar src={user.photoURL} component={Box} width={120} height={120} />
           <Typography>{user.displayName}</Typography>
         </Box>
         <Box display="flex" flexWrap="wrap" justifyContent="space-evenly">
@@ -58,17 +55,10 @@ const Products = ({ user }) => {
               {...product}
               actions={
                 <>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={() => handleOpen(product)}
-                  >
+                  <Button variant="outlined" color="primary" onClick={() => handleOpen(product)}>
                     Editar
                   </Button>
-                  <Button
-                    color="primary"
-                    onClick={() => alert(`Eliminar producto ${product.id}`)}
-                  >
+                  <Button color="primary" onClick={() => deleteProduct(product)}>
                     Eliminar
                   </Button>
                 </>
@@ -76,8 +66,8 @@ const Products = ({ user }) => {
             />
           ))}
         </Box>
+        <ProductModal data={modal} handleClose={handleClose} onSubmit={onSubmit} />
       </ContainerResponsive>
-      <ProductModal data={modal} handleClose={handleClose} />
     </>
   );
 };
@@ -86,8 +76,10 @@ Products.propTypes = {
     photoURL: PropTypes.string,
     displayName: PropTypes.string,
   }),
+  products: PropTypes.arrayOf(PropTypes.shape({})),
 };
 Products.defaultProps = {
   user: {},
+  products: [],
 };
 export default Products;
