@@ -2,12 +2,12 @@ import { red } from '@material-ui/core/colors';
 
 const styles = () => ({
   root: {
-    maxWidth: 345,
+    width: 345,
     display: 'flex',
     flexDirection: 'column',
   },
   minWidth: {
-    maxWidth: 250,
+    width: 250,
   },
   content: {
     flex: 1,
