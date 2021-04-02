@@ -1,26 +1,40 @@
 import { Avatar, Box, Button, Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import CardProduct from '#Components/Card';
 import ContainerResponsive from '#Components/Container';
 import useSellerProducts from '#hooks/useSellerProducts';
 import ProductModal from './Modal';
-// import PropTypes from 'prop-types';
+import useProducts from '#hooks/useProducts';
 
-const Products = () => {
+const Products = ({ products: _products }) => {
   const router = useRouter();
   const {
     query: { uid },
   } = router;
-  const { seller, products } = useSellerProducts({ uid });
+  const { seller } = useSellerProducts({ uid });
+  const { deleteProductInDB } = useProducts(_products);
+  const [products, setProducts] = useState(_products);
+
   const [modal, setModal] = useState({
     open: false,
-    selectedProduct: null,
+    selectedProduct: {},
   });
-  const handleOpen = (selectedProduct = null) =>
+  const handleOpen = (selectedProduct = {}) => {
     setModal({ open: true, selectedProduct });
+  };
+  const handleClose = () => setModal({ open: false, selectedProduct: {} });
 
-  const handleClose = () => setModal({ open: false, selectedProduct: null });
+  const deleteProduct = async (product) => {
+    await deleteProductInDB({ ...product });
+    setProducts((bef) => bef.filter((item) => item.id !== product.id));
+  };
+  const onSubmit = (data) => {
+    setProducts((bef) => [data, ...bef]);
+    handleClose();
+  };
+
   return (
     <>
       <ContainerResponsive>
@@ -49,7 +63,7 @@ const Products = () => {
             width={120}
             height={120}
           />
-          <Typography>{seller.name}</Typography>
+          <Typography>{seller.displayName}</Typography>
         </Box>
         <Box display="flex" flexWrap="wrap" justifyContent="space-evenly">
           {products.map((product) => (
@@ -67,7 +81,7 @@ const Products = () => {
                   </Button>
                   <Button
                     color="primary"
-                    onClick={() => alert(`Eliminar producto ${product.id}`)}
+                    onClick={() => deleteProduct(product)}
                   >
                     Eliminar
                   </Button>
@@ -76,11 +90,19 @@ const Products = () => {
             />
           ))}
         </Box>
+        <ProductModal
+          data={modal}
+          handleClose={handleClose}
+          onSubmit={onSubmit}
+        />
       </ContainerResponsive>
-      <ProductModal data={modal} handleClose={handleClose} />
     </>
   );
 };
-Products.propTypes = {};
-Products.defaultProps = {};
+Products.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape({})),
+};
+Products.defaultProps = {
+  products: [],
+};
 export default Products;
