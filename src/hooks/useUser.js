@@ -1,11 +1,11 @@
+import { useContext } from 'react';
+import SessionContext from '#src/context/session/context';
+
 const useUser = () => {
-  const user = {
-    displayName: 'Cristian Ronda',
-    uid: '44717de7-1053-46b2-bcfe-b6315b615cba',
-    photoURL:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/joshuasortino/128.jpg',
-    role: 'user',
-  };
+  const {
+    state: { user },
+  } = useContext(SessionContext);
+
   return { user };
 };
 
