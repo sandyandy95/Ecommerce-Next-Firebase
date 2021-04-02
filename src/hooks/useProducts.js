@@ -15,9 +15,9 @@ const useProducts = () => {
           product,
           seller,
         }),
+      enableSnackbar: true,
     });
     if (typeof callback === 'function') callback(data);
-    return data;
   };
 
   const createProductInDB = async ({ product, callback }) => {
@@ -41,6 +41,7 @@ const useProducts = () => {
     if (resp) {
       await fetchFunction({
         callback: deleteProductById({ id, photoId, uid: seller.uid }),
+        enableSnackbar: true,
       });
     }
   };

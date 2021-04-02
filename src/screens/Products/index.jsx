@@ -51,18 +51,8 @@ const Products = ({ products: _products }) => {
         >
           Agregar
         </Button>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          flexDirection="column"
-        >
-          <Avatar
-            src={seller.photoURL}
-            component={Box}
-            width={120}
-            height={120}
-          />
+        <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+          <Avatar src={seller.photoURL} component={Box} width={120} height={120} />
           <Typography>{seller.displayName}</Typography>
         </Box>
         <Box display="flex" flexWrap="wrap" justifyContent="space-evenly">
@@ -72,17 +62,10 @@ const Products = ({ products: _products }) => {
               {...product}
               actions={
                 <>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={() => handleOpen(product)}
-                  >
+                  <Button variant="outlined" color="primary" onClick={() => handleOpen(product)}>
                     Editar
                   </Button>
-                  <Button
-                    color="primary"
-                    onClick={() => deleteProduct(product)}
-                  >
+                  <Button color="primary" onClick={() => deleteProduct(product)}>
                     Eliminar
                   </Button>
                 </>
@@ -90,11 +73,7 @@ const Products = ({ products: _products }) => {
             />
           ))}
         </Box>
-        <ProductModal
-          data={modal}
-          handleClose={handleClose}
-          onSubmit={onSubmit}
-        />
+        <ProductModal data={modal} handleClose={handleClose} onSubmit={onSubmit} />
       </ContainerResponsive>
     </>
   );

@@ -1,28 +1,11 @@
-import {
-  Avatar,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
+import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, makeStyles, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
 const useStyles = makeStyles(styles);
 
-const CardProduct = ({
-  name,
-  price,
-  description,
-  photoURL,
-  seller,
-  actions,
-  minWidth,
-}) => {
+const CardProduct = ({ name, price, description, photoURL, seller, actions, minWidth }) => {
   const classes = useStyles();
   return (
     <Card
@@ -30,25 +13,8 @@ const CardProduct = ({
         [classes.minWidth]: minWidth,
       })}
     >
-      <CardHeader
-        avatar={
-          seller.photoURL ? (
-            <Avatar className={classes.avatar} src={seller.photoURL} />
-          ) : (
-            <Avatar className={classes.avatar}>
-              {`${seller.displayName}`[0].toLocaleUpperCase()}
-            </Avatar>
-          )
-        }
-        title={`${seller.displayName}`}
-        subheader={`$ ${price}`}
-      />
-      <CardMedia
-        className={clsx(classes.media, { [classes.minMedia]: minWidth })}
-        component="img"
-        alt={name}
-        image={photoURL}
-      />
+      <CardHeader avatar={<Avatar className={classes.avatar} src={seller.photoURL} />} title={`${seller.displayName}`} subheader={`$ ${price}`} />
+      <CardMedia className={clsx(classes.media, { [classes.minMedia]: minWidth })} component="img" alt={name} image={photoURL} />
       <CardContent className={classes.content}>
         <Typography variant="h6">{name}</Typography>
         <Typography>{description}</Typography>

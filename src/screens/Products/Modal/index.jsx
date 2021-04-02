@@ -11,20 +11,15 @@ const ProductModal = ({ data, handleClose, onSubmit }) => {
   const isEditting = Boolean(data.selectedProduct);
   const { createProductInDB } = useProducts();
 
-  const {
-    values,
-    errors,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-    resetForm,
-  } = useFormik({
+  const { values, errors, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
     initialValues: data.selectedProduct,
     onSubmit: async () => {
       await createProductInDB({
         product: values,
-        // eslint-disable-next-line no-use-before-define
-        callback: onSubmit,
+        callback: (val) => {
+          onSubmit(val);
+          resetForm();
+        },
       });
     },
     enableReinitialize: true,
@@ -74,13 +69,7 @@ const ProductModal = ({ data, handleClose, onSubmit }) => {
           helperText={errors.price}
           fullWidth
         />
-        <InputFile
-          id="photoURL"
-          name="photoURL"
-          value={values.photoURL}
-          onChange={(value) => setFieldValue('photoURL', value)}
-          helperText={errors.photoURL}
-        />
+        <InputFile id="photoURL" name="photoURL" value={values.photoURL} onChange={(value) => setFieldValue('photoURL', value)} helperText={errors.photoURL} />
         <Button variant="contained" color="secondary" type="submit">
           Guardar
         </Button>
