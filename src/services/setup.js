@@ -34,7 +34,6 @@ if (develop) {
     host: 'localhost:8080',
     ssl: false,
   });
-  fn.useEmulator('localhost', '5001');
 }
 export { db, fn, FieldValue };
 
