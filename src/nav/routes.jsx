@@ -4,7 +4,6 @@ import {
   Person,
   ShoppingCart,
   SupervisorAccount,
-  ExitToApp,
 } from '@material-ui/icons';
 
 const routes = ({ uid }) => [
@@ -22,11 +21,6 @@ const routes = ({ uid }) => [
     as: `/usuario/${uid}/productos`,
     label: 'Perfil',
     icon: <Person />,
-  },
-  {
-    href: '/iniciar-sesion',
-    label: 'Cerrar sesión',
-    icon: <ExitToApp />,
   },
 ];
 

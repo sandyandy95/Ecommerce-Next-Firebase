@@ -9,11 +9,12 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
+import { ExitToApp } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import NextLink from '../components/NextLink';
 import useUser from '../hooks/useUser';
 
-const DrawerNav = ({ routes, open, handleClose }) => {
+const DrawerNav = ({ routes, open, handleClose, signOut }) => {
   const { user } = useUser();
 
   return (
@@ -38,6 +39,12 @@ const DrawerNav = ({ routes, open, handleClose }) => {
             </ListItem>
           </NextLink>
         ))}
+        <ListItem button onClick={signOut}>
+          <ListItemIcon>
+            <ExitToApp />
+          </ListItemIcon>
+          <ListItemText primary={'Cerrar sesión'.toUpperCase()} />
+        </ListItem>
       </List>
     </Drawer>
   );
@@ -47,6 +54,7 @@ DrawerNav.propTypes = {
   routes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired,
 };
 
 export default DrawerNav;

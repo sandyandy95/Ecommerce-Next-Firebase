@@ -9,7 +9,8 @@ import {
 } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import SessionContext from '#src/context/session/context';
 import NextLink from '../components/NextLink';
 import useUser from '../hooks/useUser';
 import DrawerNav from './Drawer';
@@ -19,6 +20,8 @@ const MainNav = ({ disableNav }) => {
   const { user } = useUser();
   const routes = _routes({ uid: user.uid });
   const [open, setOpen] = useState(false);
+  const { signOut } = useContext(SessionContext);
+
   return (
     <AppBar position="sticky" top="0px" component={Box} mb={3}>
       <Toolbar>
@@ -45,6 +48,13 @@ const MainNav = ({ disableNav }) => {
                 </Button>
               </NextLink>
             ))}
+            <Button
+              color="inherit"
+              style={{ margin: 'auto' }}
+              onClick={signOut}
+            >
+              Cerrar sesión
+            </Button>
           </Hidden>
         )}
       </Toolbar>
@@ -53,6 +63,7 @@ const MainNav = ({ disableNav }) => {
           routes={routes}
           open={open}
           handleClose={() => setOpen(false)}
+          signOut={signOut}
         />
       )}
     </AppBar>

@@ -1,18 +1,18 @@
 import { Avatar, Box, Button, Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import CardProduct from '#Components/Card';
 import ContainerResponsive from '#Components/Container';
 import useSellerProducts from '#hooks/useSellerProducts';
 import ProductModal from './Modal';
-// import PropTypes from 'prop-types';
 
-const Products = () => {
+const Products = ({ user }) => {
   const router = useRouter();
   const {
     query: { uid },
   } = router;
-  const { seller, products } = useSellerProducts({ uid });
+  const { products } = useSellerProducts({ uid });
   const [modal, setModal] = useState({
     open: false,
     selectedProduct: null,
@@ -44,12 +44,12 @@ const Products = () => {
           flexDirection="column"
         >
           <Avatar
-            src={seller.photoURL}
+            src={user.photoURL}
             component={Box}
             width={120}
             height={120}
           />
-          <Typography>{seller.name}</Typography>
+          <Typography>{user.displayName}</Typography>
         </Box>
         <Box display="flex" flexWrap="wrap" justifyContent="space-evenly">
           {products.map((product) => (
@@ -81,6 +81,13 @@ const Products = () => {
     </>
   );
 };
-Products.propTypes = {};
-Products.defaultProps = {};
+Products.propTypes = {
+  user: PropTypes.shape({
+    photoURL: PropTypes.string,
+    displayName: PropTypes.string,
+  }),
+};
+Products.defaultProps = {
+  user: {},
+};
 export default Products;
