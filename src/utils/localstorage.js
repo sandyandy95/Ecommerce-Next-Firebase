@@ -17,3 +17,13 @@ export const getLocalStorage = (key, initialValue) => {
     return initialValue;
   }
 };
+
+export const clearLocalStorage = (key) => {
+  try {
+    window.localStorage.removeItem(key);
+  } catch (e) {
+    console.log(e);
+    // catch possible errors:
+    // https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+  }
+};
