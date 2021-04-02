@@ -19,19 +19,9 @@ const Home = ({ products }) => {
             key={product.id}
             {...product}
             actions={
-              <>
-                <Button
-                  variant="outlined"
-                  onClick={() => addProduct(product.id)}
-                >
-                  Comprar
-                </Button>
-                <Button
-                  onClick={() => alert(`Detalles del producto ${product.id}`)}
-                >
-                  Ver más
-                </Button>
-              </>
+              <Button variant="outlined" onClick={() => addProduct(product)}>
+                Comprar
+              </Button>
             }
           />
         ))}
