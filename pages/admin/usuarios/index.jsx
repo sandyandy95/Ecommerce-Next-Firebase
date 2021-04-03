@@ -12,9 +12,7 @@ export const getServerSideProps = (ctx) =>
       const res = await fetch('http://localhost:3000/api/users');
       data = await res.json();
       return {
-        props: {
-          data: JSON.parse(JSON.stringify(data)),
-        },
+        data: JSON.parse(JSON.stringify(data)),
       };
     },
   });

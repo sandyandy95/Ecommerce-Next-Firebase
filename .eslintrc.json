@@ -73,6 +73,7 @@
     "no-underscore-dangle": "off",
     "linebreak-style": 0,
     "global-require": 0,
+    "max-len": "off",
     "eslint linebreak-style": [
       0,
       "error",
