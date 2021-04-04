@@ -24,7 +24,7 @@ export const getServerSideProps = (ctx) =>
         const products = await getProductsById(uid);
 
         return {
-          user: JSON.parse(JSON.stringify(user)),
+          userDB: JSON.parse(JSON.stringify(user)),
           products: JSON.parse(JSON.stringify(products)),
         };
       } catch (error) {

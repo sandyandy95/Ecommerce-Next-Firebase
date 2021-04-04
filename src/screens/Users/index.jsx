@@ -3,7 +3,6 @@ import { IconButton } from '@material-ui/core';
 import MUIDataTable from 'mui-datatables';
 import { Visibility } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import ContainerResponsive from '#Components/Container';
 import useUsers from '#hooks/useUsers';
 import EditModal from './Modal';
 import { OPTIONS_ROLES } from '#src/utils/constants';
@@ -58,7 +57,7 @@ const Users = ({ data }) => {
     updateUser({ ...modal.selectedUser, ...values });
   };
   return (
-    <ContainerResponsive>
+    <>
       <h1>Administrar Usuarios</h1>
 
       <MUIDataTable
@@ -76,7 +75,7 @@ const Users = ({ data }) => {
         }}
       />
       <EditModal data={modal} handleClose={handleClose} onSubmit={onSubmit} />
-    </ContainerResponsive>
+    </>
   );
 };
 

@@ -1,7 +1,10 @@
 import { accessControlPages } from '../../../security';
 import Users from '../../../src/screens/Users';
+import Layout from '../../../src/layouts/Container';
 
 const Page = (props) => <Users {...props} />;
+
+Page.layout = Layout;
 
 export const getServerSideProps = (ctx) =>
   accessControlPages({

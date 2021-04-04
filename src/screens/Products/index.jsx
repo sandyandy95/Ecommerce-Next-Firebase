@@ -2,11 +2,10 @@ import { Avatar, Box, Button, Typography } from '@material-ui/core';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import CardProduct from '#Components/Card';
-import ContainerResponsive from '#Components/Container';
 import ProductModal from './Modal';
 import useProducts from '#hooks/useProducts';
 
-const Products = ({ products: _products, user }) => {
+const Products = ({ products: _products, userDB }) => {
   const { deleteProductInDB } = useProducts(_products);
   const [products, setProducts] = useState(_products);
 
@@ -30,24 +29,24 @@ const Products = ({ products: _products, user }) => {
 
   return (
     <>
-      <ContainerResponsive>
-        <Button
-          component={Box}
-          variant="contained"
-          position="sticky"
-          color="primary"
-          top={80}
-          zIndex={1200}
-          width={125}
-          alignSelf="flex-end"
-          onClick={() => handleOpen()}
-        >
-          Agregar
-        </Button>
-        <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-          <Avatar src={user.photoURL} component={Box} width={120} height={120} />
-          <Typography>{user.displayName}</Typography>
-        </Box>
+      <Button
+        component={Box}
+        variant="contained"
+        position="sticky"
+        color="primary"
+        top={80}
+        zIndex={1200}
+        width={125}
+        alignSelf="flex-end"
+        onClick={() => handleOpen()}
+      >
+        Agregar
+      </Button>
+      <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+        <Avatar src={userDB.photoURL} component={Box} width={120} height={120} />
+        <Typography>{userDB.displayName}</Typography>
+      </Box>
+      {products.length ? (
         <Box display="flex" flexWrap="wrap" justifyContent="space-evenly">
           {products.map((product) => (
             <CardProduct
@@ -66,20 +65,25 @@ const Products = ({ products: _products, user }) => {
             />
           ))}
         </Box>
-        <ProductModal data={modal} handleClose={handleClose} onSubmit={onSubmit} />
-      </ContainerResponsive>
+      ) : (
+        <Typography variant="h3" align="center" color="primary">
+          Agrega tus productos ahora!
+        </Typography>
+      )}
+
+      <ProductModal data={modal} handleClose={handleClose} onSubmit={onSubmit} />
     </>
   );
 };
 Products.propTypes = {
-  user: PropTypes.shape({
+  userDB: PropTypes.shape({
     photoURL: PropTypes.string,
     displayName: PropTypes.string,
   }),
   products: PropTypes.arrayOf(PropTypes.shape({})),
 };
 Products.defaultProps = {
-  user: {},
+  userDB: {},
   products: [],
 };
 export default Products;

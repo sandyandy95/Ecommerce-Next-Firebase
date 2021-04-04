@@ -6,11 +6,11 @@ import styles from './styles';
 
 const useStyles = makeStyles(styles);
 
-const ContainerResponsive = ({ children, center, disableNav, ...props }) => {
+const ContainerResponsive = ({ children, center, disableNav, user, ...props }) => {
   const classes = useStyles();
   return (
     <>
-      <MainNav disableNav={disableNav} />
+      <MainNav disableNav={disableNav} role={user ? user.role : undefined} />
       <Container
         className={clsx(classes.root, {
           [classes.center]: center,
@@ -28,10 +28,14 @@ ContainerResponsive.propTypes = {
   children: PropTypes.any.isRequired,
   center: PropTypes.bool,
   disableNav: PropTypes.bool,
+  user: PropTypes.shape(),
 };
 ContainerResponsive.defaultProps = {
   center: false,
   disableNav: false,
+  user: {
+    role: '',
+  },
 };
 
 export default ContainerResponsive;

@@ -7,10 +7,11 @@ import { SnackbarProvider } from 'notistack';
 
 import theme from '../src/theme';
 import Context from '../src/context/index';
+import NoLayout from '../src/layouts/Container';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
-
+  const { user, layoutProps } = pageProps;
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
@@ -18,6 +19,7 @@ export default function MyApp(props) {
     }
   }, []);
 
+  const Layout = Component.layout || NoLayout;
   return (
     <>
       <Head>
@@ -27,12 +29,14 @@ export default function MyApp(props) {
       </Head>
       <Context>
         <ThemeProvider theme={theme}>
-          <SnackbarProvider>
-            <CssBaseline />
-            <main>
-              <Component {...pageProps} />
-            </main>
-          </SnackbarProvider>
+          <Layout layoutProps={layoutProps} user={user}>
+            <SnackbarProvider>
+              <CssBaseline />
+              <main>
+                <Component {...pageProps} user={user} />
+              </main>
+            </SnackbarProvider>
+          </Layout>
         </ThemeProvider>
       </Context>
     </>
@@ -42,4 +46,10 @@ export default function MyApp(props) {
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.shape().isRequired,
+  layoutProps: PropTypes.shape(),
+  user: PropTypes.shape(),
+};
+MyApp.defaultProps = {
+  layoutProps: {},
+  user: {},
 };

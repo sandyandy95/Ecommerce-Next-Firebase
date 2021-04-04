@@ -1,12 +1,4 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  Hidden,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
+import { AppBar, Box, Button, Hidden, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
@@ -16,9 +8,9 @@ import useUser from '../hooks/useUser';
 import DrawerNav from './Drawer';
 import _routes from './routes';
 
-const MainNav = ({ disableNav }) => {
+const MainNav = ({ disableNav, role }) => {
   const { user } = useUser();
-  const routes = _routes({ uid: user.uid });
+  const routes = role ? _routes({ uid: user.uid })[role] : [];
   const [open, setOpen] = useState(false);
   const { signOut } = useContext(SessionContext);
 
@@ -48,28 +40,24 @@ const MainNav = ({ disableNav }) => {
                 </Button>
               </NextLink>
             ))}
-            <Button
-              color="inherit"
-              style={{ margin: 'auto' }}
-              onClick={signOut}
-            >
+            <Button color="inherit" style={{ margin: 'auto' }} onClick={signOut}>
               Cerrar sesión
             </Button>
           </Hidden>
         )}
       </Toolbar>
-      {!disableNav && (
-        <DrawerNav
+      {!disableNav
+        && <DrawerNav
           routes={routes}
           open={open}
           handleClose={() => setOpen(false)}
           signOut={signOut}
-        />
-      )}
+        />}
     </AppBar>
   );
 };
 MainNav.propTypes = {
   disableNav: PropTypes.bool.isRequired,
+  role: PropTypes.string.isRequired,
 };
 export default MainNav;

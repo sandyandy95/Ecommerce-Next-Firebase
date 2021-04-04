@@ -2,7 +2,6 @@ import { Avatar, Box, IconButton, Typography } from '@material-ui/core';
 import { Visibility } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
 import { useState } from 'react';
-import ContainerResponsive from '#Components/Container';
 import useOrders from '#hooks/useOrders';
 import OrderModal from '../PastOrders/Modal';
 
@@ -61,7 +60,7 @@ const Order = () => {
   const handleClose = () => setModal({ open: false, selectedOrder: {} });
 
   return (
-    <ContainerResponsive>
+    <>
       <h1>Pedidos del pendientes</h1>
       <MUIDataTable
         title="Lista de compras"
@@ -78,7 +77,7 @@ const Order = () => {
         }}
       />
       <OrderModal handleClose={handleClose} {...modal} />
-    </ContainerResponsive>
+    </>
   );
 };
 

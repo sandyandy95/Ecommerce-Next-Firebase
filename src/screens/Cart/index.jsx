@@ -1,6 +1,5 @@
 import { Box, Button, Grid, Typography } from '@material-ui/core';
 import CardProduct from '#Components/Card';
-import ContainerResponsive from '#Components/Container';
 import useCart from '#hooks/useCart';
 import Resumen from './sections/Resumen';
 
@@ -12,7 +11,7 @@ const Cart = () => {
   };
 
   return (
-    <ContainerResponsive center={!existProducts}>
+    <>
       <h1>Carrito</h1>
       {existProducts ? (
         <Grid container>
@@ -30,18 +29,13 @@ const Cart = () => {
             ))}
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Resumen
-              sellers={sellers}
-              totalProducts={products.length}
-              subtotal={subtotal}
-              onBuy={onBuy}
-            />
+            <Resumen sellers={sellers} totalProducts={products.length} subtotal={subtotal} onBuy={onBuy} />
           </Grid>
         </Grid>
       ) : (
         <Typography>Carrito vacío</Typography>
       )}
-    </ContainerResponsive>
+    </>
   );
 };
 
