@@ -4,6 +4,11 @@ body {
   flex-direction: column;
   flex: 1;
   height: 100%;
+  margin-bottom: 0;
+}
+main{
+  display: flex;
+  flex-direction: column;
 }
 #__next, main{
   height: auto;

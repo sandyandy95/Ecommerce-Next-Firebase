@@ -29,14 +29,14 @@ export default function MyApp(props) {
       </Head>
       <Context>
         <ThemeProvider theme={theme}>
-          <Layout layoutProps={layoutProps} user={user}>
-            <SnackbarProvider>
-              <CssBaseline />
-              <main>
+          <main>
+            <Layout layoutProps={layoutProps} user={user}>
+              <SnackbarProvider>
+                <CssBaseline />
                 <Component {...pageProps} user={user} />
-              </main>
-            </SnackbarProvider>
-          </Layout>
+              </SnackbarProvider>
+            </Layout>
+          </main>
         </ThemeProvider>
       </Context>
     </>

@@ -48,10 +48,10 @@ const SignIn = () => {
         </Box>
       </Box>
 
-      <Button fullWidth variant="contained" color="secondary" onClick={() => signIn('google')}>
+      <Button variant="contained" color="secondary" onClick={() => signIn('google')}>
         Ingresar con Google
       </Button>
-      <Button fullWidth variant="contained" color="primary" onClick={() => signIn('facebook')}>
+      <Button variant="contained" color="primary" onClick={() => signIn('facebook')}>
         Ingresar con Facebook
       </Button>
     </>

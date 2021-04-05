@@ -52,13 +52,13 @@ const theme = createMuiTheme({
     body1: {
       color: '#020202',
       fontSize: 16,
-      marginBottom: 8,
+      // marginBottom: 8,
       fontWeight: 'normal',
     },
     body2: {
       fontSize: 14,
       color: '#020202',
-      marginBottom: 8,
+      // marginBottom: 8,
       fontWeight: 'normal',
     },
     subtitle1: {
