@@ -2,13 +2,13 @@ import { Box, Button, Grid, Typography } from '@material-ui/core';
 import CardProduct from '#Components/Card';
 import useCart from '#hooks/useCart';
 import Resumen from './sections/Resumen';
+import useUser from '#hooks/useUser';
 
 const Cart = () => {
-  const { products, subtotal, sellers, removeProduct } = useCart();
+  const { products, subtotal, sellers, removeProduct, checkoutOrder } = useCart();
+  const { user } = useUser();
   const existProducts = Boolean(products.length);
-  const onBuy = () => {
-    alert('Implementar la compra');
-  };
+  const onBuy = () => checkoutOrder({ user, products });
 
   return (
     <>

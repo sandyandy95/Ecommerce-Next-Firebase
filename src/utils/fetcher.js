@@ -10,6 +10,22 @@ const fetcher = (url, token) =>
     credentials: 'same-origin',
   }).then((res) => res.json());
 
+const postData = async (url, data, token) => {
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: new Headers({ 'Content-Type': 'application/json', token }),
+      credentials: 'same-origin',
+      body: JSON.stringify(data),
+    });
+    handleError(res);
+    const { message, ...rest } = await res.json();
+    return { message, rest };
+  } catch (error) {
+    return { error };
+  }
+};
+
 const putData = async (url, data, token) => {
   try {
     const res = await fetch(url, {
@@ -27,4 +43,4 @@ const putData = async (url, data, token) => {
   }
 };
 
-export { fetcher as default, putData };
+export { fetcher as default, putData, postData };
