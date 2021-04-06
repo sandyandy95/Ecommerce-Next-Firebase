@@ -1,9 +1,6 @@
 import * as admin from 'firebase-admin';
 
-const firebasePrivateKeyBase64 = Buffer.from(
-  process.env.FIREBASE_PRIVATE_KEY_BASE64,
-  'base64'
-);
+const firebasePrivateKeyBase64 = Buffer.from(process.env.FIREBASE_PRIVATE_KEY_BASE64, 'base64');
 const firebasePrivateKey = firebasePrivateKeyBase64.toString('utf8');
 
 const config = {
@@ -24,4 +21,6 @@ const db = admin.firestore();
 
 const auth = admin.auth();
 
-export { auth, db };
+const { FieldValue } = admin.firestore;
+
+export { auth, db, FieldValue };
