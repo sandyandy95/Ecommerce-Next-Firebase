@@ -24,8 +24,8 @@ const EditModal = ({ data, handleClose, onSubmit }) => {
     <ModalContainer
       open={data.open}
       handleClose={closeModal}
-      title={`${isEditting ? 'Editar' : 'Agregar'} producto`}
-      description="Agrega los detalles del producto"
+      title={`${isEditting ? 'Editar' : 'Agregar'} usuario`}
+      description="Agrega los detalles del usuario"
       fullWidth
     >
       <Box component="form" m={3} onSubmit={handleSubmit}>

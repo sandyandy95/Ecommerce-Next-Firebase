@@ -53,8 +53,9 @@ const Users = ({ data }) => {
       open: false,
       selectedUser: {},
     });
-  const onSubmit = (values) => {
-    updateUser({ ...modal.selectedUser, ...values });
+  const onSubmit = async (values) => {
+    await updateUser({ ...modal.selectedUser, ...values });
+    handleClose();
   };
   return (
     <>
