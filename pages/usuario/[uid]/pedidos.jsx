@@ -1,3 +1,4 @@
+import nextcookies from 'next-cookies';
 import { accessControlPages } from '../../../security';
 import Orders from '../../../src/screens/Orders';
 import { getOrdersBySellerId } from '../../../src/services/server/orders';
@@ -13,7 +14,8 @@ export const getServerSideProps = (ctx) =>
         query: { uid },
         res,
       } = ctx;
-      if (!uid) {
+      const { uid: _uid } = nextcookies(ctx).__session || {};
+      if (!uid || uid !== _uid) {
         res.statusCode = 302;
         res.setHeader('Location', '/404');
       }
