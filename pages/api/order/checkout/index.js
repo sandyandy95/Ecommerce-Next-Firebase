@@ -1,6 +1,7 @@
 import { calculatePrice, formatOrders } from '../../utils/formatOrder';
 import handleError from '../../utils';
 import transactionOrder from '../../../../src/services/server/orders';
+import { accessControlApi } from '../../../../security/api';
 
 const post = async (req, res) => {
   try {
@@ -20,7 +21,7 @@ const post = async (req, res) => {
 const handler = (req, res) => {
   switch (req.method) {
     case 'POST':
-      return post(req, res);
+      return accessControlApi(['seller', 'admin'])({ req, res }, post);
     default:
       return res.status(405).json({ error: 'Método no permitido' });
   }

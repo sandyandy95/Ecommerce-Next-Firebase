@@ -1,5 +1,6 @@
 import { auth } from '../../../src/services/admin.setup';
 import handleError from '../utils';
+import { accessControlApi } from '../../../security/api';
 
 const put = async (req, res) => {
   try {
@@ -28,7 +29,7 @@ const put = async (req, res) => {
 const handler = (req, res) => {
   switch (req.method) {
     case 'PUT':
-      return put(req, res);
+      return accessControlApi('admin')({ req, res }, put);
     default:
       return res.status(405).json({ error: 'Método no permitido' });
   }

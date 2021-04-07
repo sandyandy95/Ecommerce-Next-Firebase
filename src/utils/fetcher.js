@@ -3,18 +3,18 @@ const handleError = (res) => {
     throw new Error('Ocurrio un error');
   }
 };
-const fetcher = (url, token) =>
+const fetcher = (url) =>
   fetch(url, {
     method: 'GET',
-    headers: new Headers({ 'Content-Type': 'application/json', token }),
+    headers: new Headers({ 'Content-Type': 'application/json' }),
     credentials: 'same-origin',
   }).then((res) => res.json());
 
-const postData = async (url, data, token) => {
+const postData = async (url, data) => {
   try {
     const res = await fetch(url, {
       method: 'POST',
-      headers: new Headers({ 'Content-Type': 'application/json', token }),
+      headers: new Headers({ 'Content-Type': 'application/json' }),
       credentials: 'same-origin',
       body: JSON.stringify(data),
     });
@@ -26,11 +26,11 @@ const postData = async (url, data, token) => {
   }
 };
 
-const putData = async (url, data, token) => {
+const putData = async (url, data) => {
   try {
     const res = await fetch(url, {
       method: 'PUT',
-      headers: new Headers({ 'Content-Type': 'application/json', token }),
+      headers: new Headers({ 'Content-Type': 'application/json' }),
       credentials: 'same-origin',
       body: JSON.stringify(data),
     });

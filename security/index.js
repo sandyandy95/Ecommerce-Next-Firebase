@@ -1,16 +1,8 @@
-import nextCookies from 'next-cookies';
-import verifyToken from './api';
+import { getUser } from './verifyToken';
 import { redirect, hasPermissions } from './utils';
 
-export const getUser = async (ctx) => {
-  const session = nextCookies(ctx);
-  const token = session?.__session?.stsTokenManager?.accessToken;
-  const user = await verifyToken(token);
-  return user || null;
-};
-
 // eslint-disable-next-line consistent-return
-const redirectUserHome = (res, user) => {
+export const redirectUserHome = (res, user) => {
   if (user && !user?.role) {
     return redirect(res, process.env.REDIRECT_NO_VERIFY);
   }
