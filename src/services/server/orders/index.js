@@ -11,4 +11,19 @@ const transactionOrder = ({ adminOrder, ordersBySeller }) => {
   batch.commit();
 };
 
+export const getPurchasesByCustomerId = async (uid) => {
+  const { docs } = await db.collection('orders').where('customer.uid', '==', uid).get();
+  return docs.map((item) => ({ ...item.data(), id: item.id }));
+};
+
+export const getOrdersBySellerId = async (uid) => {
+  const { docs } = await db.collection('users').doc(uid).collection('orders').get();
+  return docs.map((item) => ({ ...item.data(), id: item.id }));
+};
+
+export const getOrders = async () => {
+  const { docs } = await db.collection('orders').get();
+  return docs.map((item) => ({ ...item.data(), id: item.id }));
+};
+
 export default transactionOrder;
