@@ -12,28 +12,23 @@ export const getUser = async (ctx) => {
 // eslint-disable-next-line consistent-return
 const redirectUserHome = (res, user) => {
   if (user && !user?.role) {
-    redirect(res, process.env.REDIRECT_NO_VERIFY);
-    return true;
+    return redirect(res, process.env.REDIRECT_NO_VERIFY);
   }
   if (user?.role === 'admin') {
-    redirect(res, process.env.REDIRECT_ADMIN);
-    return true;
+    return redirect(res, process.env.REDIRECT_ADMIN);
   }
   if (user?.role === 'seller') {
-    redirect(res, process.env.REDIRECT_SELLER);
-    return true;
+    return redirect(res, `/usuario/${user.uid}/pedidos`);
   }
 };
 const redirectIfNotAuthenticated = ({ res, user, acceslist }) => {
   if (!user) {
-    redirect(res, process.env.REDIRECT_IF_NOT_AUTHENTICATED);
-    return true;
+    return redirect(res, process.env.REDIRECT_IF_NOT_AUTHENTICATED);
   }
   if (!hasPermissions(acceslist, user?.role)) {
     redirectUserHome(res, user);
 
-    redirect(res, process.env.REDIRECT_IF_NO_ACCESS);
-    return true;
+    return redirect(res, process.env.REDIRECT_IF_NO_ACCESS);
   }
   return false;
 };
@@ -41,11 +36,12 @@ const redirectIfNotAuthenticated = ({ res, user, acceslist }) => {
 const redirectIfAuthenticated = ({ res, user }) => {
   redirectUserHome(res, user);
   if (user) {
-    redirect(res, process.env.REDIRECT_IF_AUTHENTICATED);
-    return true;
+    return redirect(res, process.env.REDIRECT_IF_AUTHENTICATED);
   }
   return false;
 };
+/// bug cuando redirige a redirectIfAuthenticated redirecciona primero y luego retorna las props
+// mejor seria retrnar la url y hacer el redirect antes del props
 
 export const accessControlPages = async ({ ctx, action = 'NAVIGATION', acl = 'any', props = {} }) => {
   const user = await getUser(ctx);

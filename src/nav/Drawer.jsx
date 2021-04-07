@@ -1,14 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from '@material-ui/core';
+import { Avatar, Box, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import { ExitToApp } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import NextLink from '../components/NextLink';
@@ -19,27 +9,27 @@ const DrawerNav = ({ routes, open, handleClose, signOut }) => {
 
   return (
     <Drawer open={open} onClose={handleClose}>
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        mt={4}
-      >
+      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mt={4}>
         <Avatar src={user.photoURL} sizes="" color="secondary" />
         <Typography>{user.displayName}</Typography>
       </Box>
       <Divider />
       <List>
         {routes.map((item) => (
-          <NextLink key={item.href} href={item.href}>
-            <ListItem button>
+          <NextLink key={item.href} href={item.href} as={item.as || ''}>
+            <ListItem button onClick={handleClose}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.label.toUpperCase()} />
             </ListItem>
           </NextLink>
         ))}
-        <ListItem button onClick={signOut}>
+        <ListItem
+          button
+          onClick={() => {
+            handleClose();
+            signOut();
+          }}
+        >
           <ListItemIcon>
             <ExitToApp />
           </ListItemIcon>

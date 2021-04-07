@@ -1,8 +1,8 @@
-import { Avatar, Box, IconButton, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { IconButton } from '@material-ui/core';
 import { Visibility } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import OrderModal from '../PastOrders/Modal';
 
 const columns = ({ handleDetails }) => [
@@ -19,23 +19,16 @@ const columns = ({ handleDetails }) => [
     },
   },
   {
-    name: 'customer',
-    label: 'Cliente',
+    name: 'products',
+    label: 'Total de productos',
     options: {
       // eslint-disable-next-line react/prop-types
-      customBodyRender: ({ displayName, photoURL }) => (
-        <Box display="flex" alignItems="center">
-          <Box mr={3}>
-            <Avatar src={photoURL} />
-          </Box>
-          <Typography>{displayName}</Typography>
-        </Box>
-      ),
+      customBodyRender: (value) => value.length,
     },
   },
   {
-    name: 'subtotal',
-    label: 'Total de la venta',
+    name: 'total',
+    label: 'Total de la compra',
     options: {
       customBodyRender: (value) => `$${value.toFixed(2)}`,
     },
@@ -48,8 +41,7 @@ const columns = ({ handleDetails }) => [
     },
   },
 ];
-
-const Order = ({ orders, user }) => {
+const Purchases = ({ orders }) => {
   const [modal, setModal] = useState({ open: false, selectedOrder: {} });
   const handleDetails = (_id) =>
     setModal({
@@ -57,10 +49,9 @@ const Order = ({ orders, user }) => {
       selectedOrder: orders.find(({ id }) => id === _id),
     });
   const handleClose = () => setModal({ open: false, selectedOrder: {} });
-
   return (
     <>
-      <h1>Pedidos del pendientes</h1>
+      <h1>Tus compras</h1>
       <MUIDataTable
         title="Lista de compras"
         data={orders}
@@ -75,16 +66,14 @@ const Order = ({ orders, user }) => {
           selectableRowsHeader: false,
         }}
       />
-      <OrderModal handleClose={handleClose} {...modal} {...user} />
+      <OrderModal handleClose={handleClose} {...modal} />
     </>
   );
 };
-Order.propTypes = {
+Purchases.propTypes = {
   orders: PropTypes.arrayOf(PropTypes.shape()),
-  user: PropTypes.shape(),
 };
-Order.defaultProps = {
+Purchases.defaultProps = {
   orders: [],
-  user: {},
 };
-export default Order;
+export default Purchases;

@@ -13,22 +13,25 @@ const MainNav = ({ disableNav, role }) => {
   const routes = role ? _routes({ uid: user.uid })[role] : [];
   const [open, setOpen] = useState(false);
   const { signOut } = useContext(SessionContext);
-
+  const labelRole = role ? { seller: 'Vendedor', admin: 'Admin', user: 'Usuario' }[role] : '';
   return (
     <AppBar position="sticky" top="0px" component={Box} mb={3}>
       <Toolbar>
         <Box display="flex" flex={1} alignItems="center">
-          {!disableNav && (
+          {!disableNav && routes.length && (
             <Hidden smUp>
               <IconButton color="inherit" onClick={() => setOpen(true)}>
                 <Menu />
               </IconButton>
             </Hidden>
           )}
-          <NextLink href="/" scroll>
-            <Typography style={{ cursor: 'pointer' }} variant="h4">
-              Ecommerce
-            </Typography>
+          <NextLink href="/">
+            <Box display="flex">
+              <Typography style={{ cursor: 'pointer' }} variant="h4">
+                Ecommerce
+              </Typography>
+              <sub>{labelRole}</sub>
+            </Box>
           </NextLink>
         </Box>
         {!disableNav && (
@@ -40,24 +43,23 @@ const MainNav = ({ disableNav, role }) => {
                 </Button>
               </NextLink>
             ))}
-            <Button color="inherit" style={{ margin: 'auto' }} onClick={signOut}>
-              Cerrar sesión
-            </Button>
+            {routes.length && (
+              <Button color="inherit" style={{ margin: 'auto' }} onClick={signOut}>
+                Cerrar sesión
+              </Button>
+            )}
           </Hidden>
         )}
       </Toolbar>
-      {!disableNav
-        && <DrawerNav
-          routes={routes}
-          open={open}
-          handleClose={() => setOpen(false)}
-          signOut={signOut}
-        />}
+      {!disableNav && <DrawerNav routes={routes} open={open} handleClose={() => setOpen(false)} signOut={signOut} />}
     </AppBar>
   );
 };
 MainNav.propTypes = {
   disableNav: PropTypes.bool.isRequired,
-  role: PropTypes.string.isRequired,
+  role: PropTypes.string,
+};
+MainNav.defaultProps = {
+  role: undefined,
 };
 export default MainNav;
