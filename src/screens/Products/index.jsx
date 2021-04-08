@@ -22,8 +22,18 @@ const Products = ({ products: _products, userDB }) => {
     await deleteProductInDB({ ...product });
     setProducts((bef) => bef.filter((item) => item.id !== product.id));
   };
-  const onSubmit = (data) => {
-    setProducts((bef) => [data, ...bef]);
+  const onSubmit = ({ product, isEditting }) => {
+    if (isEditting) {
+      const updatedProducts = products.map((item) => {
+        if (item.id === product.id) {
+          return { ...item, ...product };
+        }
+        return item;
+      });
+      setProducts(updatedProducts);
+    } else {
+      setProducts((bef) => [product, ...bef]);
+    }
     handleClose();
   };
 

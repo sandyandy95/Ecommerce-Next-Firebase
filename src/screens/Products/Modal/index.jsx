@@ -9,18 +9,28 @@ import useProducts from '#hooks/useProducts';
 
 const ProductModal = ({ data, handleClose, onSubmit }) => {
   const isEditting = Boolean(data.selectedProduct);
-  const { createProductInDB } = useProducts();
+  const { createProductInDB, updateProductInDB } = useProducts();
 
   const { values, errors, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
     initialValues: data.selectedProduct,
     onSubmit: async () => {
-      await createProductInDB({
-        product: values,
-        callback: (val) => {
-          onSubmit(val);
-          resetForm();
-        },
-      });
+      if (isEditting) {
+        await updateProductInDB({
+          product: values,
+          callback: (val) => {
+            onSubmit({ product: val, isEditting });
+            resetForm();
+          },
+        });
+      } else {
+        await createProductInDB({
+          product: values,
+          callback: (val) => {
+            onSubmit({ product: val, isEditting });
+            resetForm();
+          },
+        });
+      }
     },
     enableReinitialize: true,
     validationSchema: ProductSchema,
