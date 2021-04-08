@@ -9,7 +9,7 @@ const post = async (req, res) => {
 
     const price = calculatePrice(products);
     const { adminOrder, ordersBySeller } = formatOrders({ price, products, customer });
-    transactionOrder({ adminOrder, ordersBySeller });
+    await transactionOrder({ adminOrder, ordersBySeller });
     res.status(200).json({
       message: 'Operación realizada con éxito',
     });
