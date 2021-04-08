@@ -6,11 +6,13 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { SnackbarProvider } from 'notistack';
 
+import { AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 import theme from '../src/theme';
 import Context from '../src/context/index';
 import NoLayout from '../src/layouts/Container';
 import LoadingModal from '../src/components/LoadingModal';
 import LoadingScreen from '../src/components/LoadingScreen';
+import Bot from '../src/components/Bot';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -38,6 +40,7 @@ export default function MyApp(props) {
   }, []);
 
   const Layout = Component.layout || NoLayout;
+
   return (
     <>
       <Head>
@@ -49,16 +52,25 @@ export default function MyApp(props) {
         <ThemeProvider theme={theme}>
           <main>
             {isLoading ? (
-              <LoadingScreen />
+              <AnimatePresence>
+                <AnimateSharedLayout type="crossfade">
+                  <LoadingScreen />
+                </AnimateSharedLayout>
+              </AnimatePresence>
             ) : (
-              <Layout layoutProps={layoutProps} user={user}>
-                <SnackbarProvider>
-                  <CssBaseline />
-                  <Component {...pageProps} user={user} />
-                </SnackbarProvider>
-              </Layout>
+              <AnimatePresence>
+                <AnimateSharedLayout type="crossfade">
+                  <Layout layoutProps={layoutProps} user={user}>
+                    <SnackbarProvider>
+                      <CssBaseline />
+                      <Component {...pageProps} user={user} />
+                    </SnackbarProvider>
+                  </Layout>
+                </AnimateSharedLayout>
+              </AnimatePresence>
             )}
             <LoadingModal />
+            <Bot />
           </main>
         </ThemeProvider>
       </Context>

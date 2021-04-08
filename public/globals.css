@@ -30,10 +30,10 @@ body::-webkit-scrollbar {
  
 body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #f50057;
+  background-color: #515664;
 }
  
 body::-webkit-scrollbar-thumb {
-  background-color: #3f51b5;
+  background-color: #434049;
   border-radius: 2em;
 }

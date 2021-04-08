@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import { Visibility } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
 import { useState } from 'react';
@@ -51,7 +51,10 @@ const Purchases = ({ orders }) => {
   const handleClose = () => setModal({ open: false, selectedOrder: {} });
   return (
     <>
-      <h1>Tus compras</h1>
+      <Typography variant="h3" gutterBottom>
+        Tus compras
+      </Typography>
+
       <MUIDataTable
         title="Lista de compras"
         data={orders}

@@ -60,7 +60,9 @@ const Order = ({ orders, user }) => {
 
   return (
     <>
-      <h1>Pedidos del pendientes</h1>
+      <Typography gutterBottom variant="h3">
+        Pedidos por entregar
+      </Typography>
       <MUIDataTable
         title="Lista de compras"
         data={orders}

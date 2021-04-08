@@ -52,10 +52,14 @@ const Products = ({ products: _products, userDB }) => {
       >
         Agregar
       </Button>
+
       <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
         <Avatar src={userDB.photoURL} component={Box} width={120} height={120} />
         <Typography>{userDB.displayName}</Typography>
       </Box>
+      <Typography variant="h3" gutterBottom>
+        Tus Productos
+      </Typography>
       {products.length ? (
         <Box display="flex" flexWrap="wrap" justifyContent="space-evenly">
           {products.map((product) => (

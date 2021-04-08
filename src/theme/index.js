@@ -1,5 +1,17 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
+const palette = {
+  primary: {
+    main: '#434049',
+    dark: '#515664',
+    light: '#77586E',
+  },
+  secondary: {
+    main: '#6B5531',
+    light: '#896A65',
+    dark: '#563B36',
+  },
+};
 const theme = createMuiTheme({
   overrides: {
     MuiTextField: {
@@ -34,6 +46,11 @@ const theme = createMuiTheme({
     MuiButton: {
       root: {
         marginBottom: 16,
+      },
+    },
+    MuiTypography: {
+      h3: {
+        color: palette.secondary.light,
       },
     },
   },
@@ -78,6 +95,7 @@ const theme = createMuiTheme({
       fontWeight: '600',
     },
   },
+  palette,
 });
 
 export default responsiveFontSizes(theme);

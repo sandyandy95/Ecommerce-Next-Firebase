@@ -12,7 +12,9 @@ const Cart = () => {
 
   return (
     <>
-      <h1>Carrito</h1>
+      <Typography gutterBottom variant="h3">
+        Carrito
+      </Typography>
       {existProducts ? (
         <Grid container>
           <Grid item xs={12} sm={8} component={Box} display="flex" flexWrap="wrap" justifyContent="space-evenly">

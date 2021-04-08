@@ -9,8 +9,7 @@ const Home = ({ products }) => {
   const { addProduct } = useCart();
   return (
     <>
-      <h1>Home</h1>
-      <Typography>{`Bienvenido, ${user.displayName}`}</Typography>
+      <Typography variant="h3" gutterBottom>{`Bienvenido, ${user.displayName}`}</Typography>
 
       <Box display="flex" flexWrap="wrap" justifyContent="space-evenly">
         {products.map((product) => (

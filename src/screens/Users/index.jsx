@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import MUIDataTable from 'mui-datatables';
 import { Visibility } from '@material-ui/icons';
 import PropTypes from 'prop-types';
@@ -57,12 +57,14 @@ const Users = ({ data }) => {
     await updateUser({ ...modal.selectedUser, ...values });
     handleClose();
   };
+
   return (
     <>
-      <h1>Administrar Usuarios</h1>
-
+      <Typography variant="h3" gutterBottom>
+        Usuarios de la plataforma
+      </Typography>
       <MUIDataTable
-        title="Lista de usuarioss"
+        title="Lista de usuarios"
         data={users}
         columns={columns({ handleOpen })}
         options={{

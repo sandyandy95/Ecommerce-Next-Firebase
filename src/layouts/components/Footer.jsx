@@ -2,7 +2,7 @@ import { Box, Grid, Link, Tooltip, Typography, useTheme } from '@material-ui/cor
 
 // eslint-disable-next-line react/prop-types
 const WhatsAppLink = ({ children }) => (
-  <Link href="wa.link/stss7l" target="_blank" color="inherit">
+  <Link href="https://wa.link/stss7l" target="_blank" color="inherit">
     <Typography color="inherit">{children}</Typography>
   </Link>
 );
