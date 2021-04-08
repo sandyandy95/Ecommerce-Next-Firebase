@@ -20,8 +20,7 @@ const LoadingModal = () => {
           autoplay: true,
           animationData,
         }}
-        height={400}
-        width={400}
+        style={{ maxHeight: 500, maxWidth: 500 }}
       />
     </Modal>
   );

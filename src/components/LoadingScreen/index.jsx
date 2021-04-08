@@ -15,8 +15,7 @@ const LoadingScreen = () => {
           autoplay: true,
           animationData,
         }}
-        height={700}
-        width={700}
+        style={{ maxHeight: 700, maxWidth: 700 }}
       />
     </Box>
   );

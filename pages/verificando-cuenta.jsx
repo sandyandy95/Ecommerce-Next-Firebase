@@ -1,12 +1,16 @@
-import { Box, Typography } from '@material-ui/core';
+import { accessControlPages } from '../security';
+import VerifyAccount from '../src/screens/VerifyAccount';
 
-const Page = () => (
-  <Box>
-    <Typography align="center" variant="h2" color="secondary">
-      Estamos verificando tu cuenta
-    </Typography>
-  </Box>
-);
-Page.propTypes = {};
-Page.defaultProps = {};
+const Page = () => <VerifyAccount />;
+
+export const getServerSideProps = (ctx) =>
+  accessControlPages({
+    ctx,
+    props: {
+      layoutProps: {
+        center: true,
+        disableNav: true,
+      },
+    },
+  });
 export default Page;
