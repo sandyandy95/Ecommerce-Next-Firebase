@@ -3,7 +3,7 @@ import { Visibility } from '@material-ui/icons';
 import MUIDataTable from 'mui-datatables';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import OrderModal from '../PastOrders/Modal';
+import OrderModal from './Modal';
 
 const columns = ({ handleDetails }) => [
   {
