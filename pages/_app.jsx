@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -9,10 +10,26 @@ import theme from '../src/theme';
 import Context from '../src/context/index';
 import NoLayout from '../src/layouts/Container';
 import LoadingModal from '../src/components/LoadingModal';
+import LoadingScreen from '../src/components/LoadingScreen';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
   const { user, layoutProps } = pageProps;
+  const [isLoading, setIsLoading] = useState(false);
+  const Router = useRouter();
+
+  useEffect(() => {
+    const updateLoadingStatus = () => setIsLoading(!isLoading);
+
+    Router.events.on('routeChangeStart', updateLoadingStatus);
+    Router.events.on('routeChangeComplete', updateLoadingStatus);
+
+    return () => {
+      Router.events.off('routeChangeStart', updateLoadingStatus);
+      Router.events.off('routeChangeComplete', updateLoadingStatus);
+    };
+  }, [Router.events, isLoading]);
+
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
@@ -31,12 +48,16 @@ export default function MyApp(props) {
       <Context>
         <ThemeProvider theme={theme}>
           <main>
-            <Layout layoutProps={layoutProps} user={user}>
-              <SnackbarProvider>
-                <CssBaseline />
-                <Component {...pageProps} user={user} />
-              </SnackbarProvider>
-            </Layout>
+            {isLoading ? (
+              <LoadingScreen />
+            ) : (
+              <Layout layoutProps={layoutProps} user={user}>
+                <SnackbarProvider>
+                  <CssBaseline />
+                  <Component {...pageProps} user={user} />
+                </SnackbarProvider>
+              </Layout>
+            )}
             <LoadingModal />
           </main>
         </ThemeProvider>
