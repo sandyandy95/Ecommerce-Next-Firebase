@@ -2,9 +2,11 @@ import { useContext } from 'react';
 import { useSnackbar } from 'notistack';
 import CartContext from '#src/context/cart/context';
 import { postData } from '#src/utils/fetcher';
+import UIContext from '#src/context/ui/context';
 
 const useCart = () => {
   const { state, addItemToCart, removeItemToCart, clearCart } = useContext(CartContext);
+  const { showLoading, hideLoading } = useContext(UIContext);
   const { products = [] } = state;
   const { enqueueSnackbar } = useSnackbar();
 
@@ -32,10 +34,13 @@ const useCart = () => {
   const sellers = products.reduce((acum, curr) => [...acum, curr.seller], []);
 
   const checkoutOrder = async (data) => {
+    showLoading();
     const { error } = await postData('api/order/checkout/', data);
     if (error) {
+      hideLoading();
       return enqueueSnackbar('Lo sentimos sucedio un error', { variant: 'error' });
     }
+    hideLoading();
     clearCart();
     return enqueueSnackbar('¡Gracias! Tu pedido llegará pronto', { variant: 'success' });
   };

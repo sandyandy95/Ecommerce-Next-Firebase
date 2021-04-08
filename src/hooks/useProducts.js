@@ -1,12 +1,15 @@
+import { useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 import { createProduct, deleteProductById, updateProduct } from '#services/client/products/db';
 import { uploadFile } from '#services/utils/storage';
 import useFetch from './useFetch';
 import useUser from './useUser';
+import UIContext from '#src/context/ui/context';
 
 const useProducts = () => {
   const { fetchFunction } = useFetch();
   const { user: seller } = useUser();
+  const { showLoading, hideLoading } = useContext(UIContext);
 
   const createProductFirestore = async ({ callback, product }) => {
     const data = await fetchFunction({
@@ -37,20 +40,28 @@ const useProducts = () => {
 
   const updateProductInDB = async ({ product, callback }) => {
     let data = {};
-    if (typeof product.photoURL === 'string') {
-      data = await updateProduct(product);
-      if (typeof callback === 'function' && data) callback(data);
-    } else {
-      await uploadFile({
-        node: 'users',
-        path: `${seller.uid}/products/${product.photoId}`,
-        file: product.photoURL,
-        setProgress: (progress) => console.log(progress),
-        callback: async (photoURL) => {
-          data = await updateProduct({ ...product, photoURL, photoId: product.photoId });
-          if (typeof callback === 'function' && data) callback(data);
-        },
-      });
+    showLoading();
+
+    try {
+      if (product.photoId) {
+        data = await updateProduct(product);
+        if (typeof callback === 'function' && data) callback(data);
+        hideLoading();
+      } else {
+        await uploadFile({
+          node: 'users',
+          path: `${seller.uid}/products/${product.photoId}`,
+          file: product.photoURL,
+          setProgress: (progress) => console.log(progress),
+          callback: async (photoURL) => {
+            data = await updateProduct({ ...product, photoURL, photoId: product.photoId });
+            if (typeof callback === 'function' && data) callback(data);
+            hideLoading();
+          },
+        });
+      }
+    } catch (error) {
+      hideLoading();
     }
   };
 

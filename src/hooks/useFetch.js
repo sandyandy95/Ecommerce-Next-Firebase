@@ -1,28 +1,32 @@
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
+import { useContext } from 'react';
+import UIContext from '#src/context/ui/context';
 
 const useFetch = () => {
-  const [loading, setLoading] = useState();
+  const { showLoading, hideLoading } = useContext(UIContext);
+
   const { enqueueSnackbar } = useSnackbar();
   const fetchFunction = async ({ callback, enableSnackbar = false, snackbar = { msjSuccess: 'Listo', msjError: 'Error' } }) => {
     try {
-      setLoading(false);
+      showLoading();
       let data;
       if (typeof callback === 'function') {
         data = await callback();
       }
-      setLoading(true);
+
       if (enableSnackbar) {
         enqueueSnackbar(snackbar.msjSuccess, {
           variant: 'success',
         });
       }
+      hideLoading();
       return data;
     } catch (e) {
-      setLoading(false);
+      hideLoading();
       enqueueSnackbar(snackbar.msjError, {
         variant: 'error',
       });
+      return '';
     }
   };
   return { fetchFunction };
