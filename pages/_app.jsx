@@ -8,6 +8,7 @@ import { SnackbarProvider } from 'notistack';
 import theme from '../src/theme';
 import Context from '../src/context/index';
 import NoLayout from '../src/layouts/Container';
+import LoadingModal from '../src/components/LoadingModal';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -36,6 +37,7 @@ export default function MyApp(props) {
                 <Component {...pageProps} user={user} />
               </SnackbarProvider>
             </Layout>
+            <LoadingModal />
           </main>
         </ThemeProvider>
       </Context>

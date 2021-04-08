@@ -7,3 +7,8 @@ export const cart = {
   REMOVE_PRODUCT: 'REMOVE_PRODUCT',
   CLEAR_CART: 'CLEAR_CART',
 };
+
+export const uiTypes = {
+  SHOW_LOADING_FETCH: 'SHOW_LOADING_FETCH',
+  HIDE_LOADING_FETCH: 'HIDE_LOADING_FETCH',
+};
