@@ -12,7 +12,7 @@ export const getServerSideProps = (ctx) =>
     acl: 'admin',
     props: async () => {
       let data = {};
-      const res = await fetch('http://localhost:3000/api/users', {
+      const res = await fetch(`${process.env.URL_END_POINT}/api/users`, {
         headers: ctx.req ? { cookie: ctx.req.headers.cookie } : undefined,
       });
       data = await res.json();
