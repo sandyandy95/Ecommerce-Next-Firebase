@@ -24,18 +24,25 @@ const useProducts = () => {
   };
 
   const createProductInDB = async ({ product, callback }) => {
-    const photoId = uuid();
-    uploadFile({
-      node: 'users',
-      path: `${seller.uid}/products/${photoId}`,
-      file: product.photoURL,
-      setProgress: (progress) => console.log(progress),
-      callback: (photoURL) =>
-        createProductFirestore({
-          product: { ...product, photoURL, photoId },
-          callback,
-        }),
-    });
+    showLoading();
+    try {
+      const photoId = uuid();
+      uploadFile({
+        node: 'users',
+        path: `${seller.uid}/products/${photoId}`,
+        file: product.photoURL,
+        setProgress: (progress) => console.log(progress),
+        callback: async (photoURL) => {
+          await createProductFirestore({
+            product: { ...product, photoURL, photoId },
+            callback,
+          });
+          hideLoading();
+        },
+      });
+    } catch (error) {
+      hideLoading();
+    }
   };
 
   const updateProductInDB = async ({ product, callback }) => {
