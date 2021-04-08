@@ -1,6 +1,7 @@
 import { auth } from '../../../src/services/admin.setup';
 import handleError from '../utils';
 import { accessControlApi } from '../../../security/api';
+import { transactionUpdateUserById } from '#src/services/server/user/db';
 
 const put = async (req, res) => {
   try {
@@ -17,6 +18,7 @@ const put = async (req, res) => {
     };
     await auth.updateUser(uid, updatedUser);
     await auth.setCustomUserClaims(uid, { role });
+    await transactionUpdateUserById({ uid, ...updatedUser });
     return res.status(200).send({
       status: 200,
       message: 'Usuario actualizado con éxito',
