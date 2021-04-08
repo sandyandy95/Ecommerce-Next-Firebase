@@ -8,7 +8,7 @@ import InputFile from '#Components/InputFile';
 import useProducts from '#hooks/useProducts';
 
 const ProductModal = ({ data, handleClose, onSubmit }) => {
-  const isEditting = Boolean(data.selectedProduct);
+  const isEditting = Boolean(Object.keys(data.selectedProduct).length);
   const { createProductInDB, updateProductInDB } = useProducts();
 
   const { values, errors, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
