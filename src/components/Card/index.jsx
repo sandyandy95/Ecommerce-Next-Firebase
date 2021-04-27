@@ -36,11 +36,11 @@ const CardProduct = ({
             <Avatar className={classes.avatar} src={seller.photoURL} />
           ) : (
             <Avatar className={classes.avatar}>
-              {`${seller.name}`[0].toLocaleUpperCase()}
+              {/* {`${seller.displayName}`[0].toLocaleUpperCase()} */}
             </Avatar>
           )
         }
-        title={`${seller.name}`}
+        title={`${seller.displayName}`}
         subheader={`$ ${price}`}
       />
       <CardMedia
@@ -65,7 +65,7 @@ CardProduct.propTypes = {
   description: PropTypes.string,
   photoURL: PropTypes.string,
   seller: PropTypes.shape({
-    name: PropTypes.string,
+    displayName: PropTypes.string,
     photoURL: PropTypes.string,
   }),
   actions: PropTypes.element,
@@ -77,7 +77,7 @@ CardProduct.defaultProps = {
   description: '',
   photoURL: '',
   seller: {
-    name: '',
+    displayName: '',
     photoURL: '',
   },
   minWidth: false,

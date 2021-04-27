@@ -14,6 +14,10 @@ export const createProduct = async ({ product, seller }) => {
 };
 
 export const deleteProductById = async ({ uid, id, photoId }) => {
-  await deleteFile(`users/${uid}/products/${photoId}`);
-  await productRef().doc(id).delete();
+  try {
+    await deleteFile(`users/${uid}/products/${photoId}`);
+    await productRef().doc(id).delete();
+  } catch (error) {
+    console.log(error);
+  }
 };

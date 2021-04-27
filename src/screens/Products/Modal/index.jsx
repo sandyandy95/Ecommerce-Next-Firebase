@@ -3,23 +3,24 @@ import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import ModalContainer from '../../../components/ModalContainer';
 import Input from '../../../components/Input';
+import InputFile from '../../../components/InputFile';
 import { ProductSchema } from '../../../utils/schemas';
 
-const ProductModal = ({ data, handleClose }) => {
-  const isEditting = Boolean(data.selectedProduct);
+const ProductModal = ({ data, handleClose, onSubmit }) => {
+  const isEditting = Object.keys(data.selectedProduct).length > 0;
 
-  const initialValues = data.selectedProduct || {
+  const initialValues = isEditting ? data.selectedProduct : {
     name: '',
     photoURL: '',
     description: '',
     price: 0,
   };
 
-  const { values, errors, handleChange, handleSubmit } = useFormik({
+  const { values, errors, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
     initialValues,
-    onSubmit: () => {
-      alert(`Guardando... ${JSON.stringify(values)}`);
-      handleClose();
+    onSubmit: async () => {
+      await onSubmit(values);
+      resetForm();
     },
     enableReinitialize: true,
     validationSchema: ProductSchema,
@@ -65,6 +66,11 @@ const ProductModal = ({ data, handleClose }) => {
           helperText={errors.price}
           fullWidth
         />
+        <InputFile
+          value={values.photoURL}
+          onChange={(value) => setFieldValue('photoURL', value)}
+          helperText={errors.photoURL}
+        />
         <Button variant="contained" color="secondary" type="submit">
           Guardar
         </Button>
@@ -78,5 +84,6 @@ ProductModal.propTypes = {
     selectedProduct: PropTypes.shape({}),
   }).isRequired,
   handleClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 export default ProductModal;

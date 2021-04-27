@@ -1,26 +1,46 @@
+import PropTypes from 'prop-types';
 import { Avatar, Box, Button, Typography } from '@material-ui/core';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import CardProduct from '#Components/Card';
 import ContainerResponsive from '#Components/Container';
-import useSellerProducts from '#hooks/useSellerProducts';
+import useProducts from '#hooks/useProducts';
+import useUser from '#hooks/useUser';
 import ProductModal from './Modal';
-// import PropTypes from 'prop-types';
 
-const Products = () => {
-  const router = useRouter();
-  const {
-    query: { uid },
-  } = router;
-  const { seller, products } = useSellerProducts({ uid });
+const Products = ({ products: _products }) => {
+  const { deleteProductInDB, createProductInDB } = useProducts(_products);
+  const [products, setProducts] = useState(_products);
+  const { user: seller } = useUser();
   const [modal, setModal] = useState({
     open: false,
-    selectedProduct: null,
+    selectedProduct: {},
   });
-  const handleOpen = (selectedProduct = null) =>
-    setModal({ open: true, selectedProduct });
 
-  const handleClose = () => setModal({ open: false, selectedProduct: null });
+  const handleOpen = (selectedProduct = {}) => {
+    setModal({ open: true, selectedProduct });
+  };
+  const handleClose = () => setModal({ open: false, selectedProduct: {} });
+
+  const deleteProduct = async (product) => {
+    await deleteProductInDB({ ...product });
+    setProducts((bef) => bef.filter((item) => item.id !== product.id));
+  };
+
+  const onSubmit = async (product) => {
+    if(Object.keys(modal.selectedProduct).length){
+      // actuliza el producto
+    }else {
+      await createProductInDB({
+            product,
+            callback: (_response) => {
+              setProducts((bef) => [_response, ...bef]);
+              handleClose();
+            },
+          });
+    }
+    
+  };
+
   return (
     <>
       <ContainerResponsive>
@@ -49,7 +69,7 @@ const Products = () => {
             width={120}
             height={120}
           />
-          <Typography>{seller.name}</Typography>
+          <Typography>{seller.displayName}</Typography>
         </Box>
         <Box display="flex" flexWrap="wrap" justifyContent="space-evenly">
           {products.map((product) => (
@@ -67,7 +87,7 @@ const Products = () => {
                   </Button>
                   <Button
                     color="primary"
-                    onClick={() => alert(`Eliminar producto ${product.id}`)}
+                    onClick={() => deleteProduct(product)}
                   >
                     Eliminar
                   </Button>
@@ -77,10 +97,18 @@ const Products = () => {
           ))}
         </Box>
       </ContainerResponsive>
-      <ProductModal data={modal} handleClose={handleClose} />
+      <ProductModal
+        data={modal}
+        handleClose={handleClose}
+        onSubmit={onSubmit}
+      />
     </>
   );
 };
-Products.propTypes = {};
-Products.defaultProps = {};
+Products.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape({})),
+};
+Products.defaultProps = {
+  products: [],
+};
 export default Products;

@@ -13,6 +13,9 @@ export const getProducts = async () => {
 
 export const getProductsById = async (uid) => {
   const { docs } = await productsRef.where('seller.uid', '==', uid).get();
+  // [{city: Guayaquil , details: { productName: "Ricardo", age: 12 }},
+  // {city: Quito ,details: { productName: "Sandy", age: 12 }}
+  // formato --> Cambiarle productName a name
   return docs.map((item) => ({ ...item.data(), id: item.id }));
 };
 
