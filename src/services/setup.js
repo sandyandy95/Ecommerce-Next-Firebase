@@ -26,8 +26,9 @@ const fn = firebase.functions();
 const { FieldValue } = firebase.firestore;
 
 // For development we recommend building a firebase emulator with the server code
-const develop = process.env.NODE_ENV === 'development';
-/*if (develop) {
+// const develop = process.env.NODE_ENV === 'development';
+/*
+if (develop) {
   console.log('=>=>=>=>=>=>=>=>=>=>=> Corriendo en DEV =>=>=>=>=>=>=>=>=>=>=>');
 
   db.settings({
@@ -35,7 +36,7 @@ const develop = process.env.NODE_ENV === 'development';
     ssl: false,
   });
   fn.useEmulator('localhost', '5001');
-}*/
+} */
 export { db, fn, FieldValue };
 
 export default initFirebase;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const useFetch = () => {
-  const [setLoading] = useState();
+  const [loading, setLoading] = useState();
 
   const fetchFunction = async ({ callback }) => {
     try {

@@ -8,7 +8,11 @@ import useUser from '#hooks/useUser';
 import ProductModal from './Modal';
 
 const Products = ({ products: _products }) => {
-  const { deleteProductInDB, createProductInDB } = useProducts(_products);
+  const {
+    deleteProductInDB,
+    createProductInDB,
+    updateProductInDB,
+  } = useProducts(_products);
   const [products, setProducts] = useState(_products);
   const { user: seller } = useUser();
   const [modal, setModal] = useState({
@@ -27,18 +31,25 @@ const Products = ({ products: _products }) => {
   };
 
   const onSubmit = async (product) => {
-    if(Object.keys(modal.selectedProduct).length){
-      // actuliza el producto
-    }else {
+    if (Object.keys(modal.selectedProduct).length) {
+      const productUpdated = await updateProductInDB(product);
+      const _productsUpdated = products.map((item) => {
+        if (item.id === productUpdated.id) {
+          return { ...productUpdated };
+        }
+        return item;
+      });
+      setProducts(_productsUpdated);
+      handleClose();
+    } else {
       await createProductInDB({
-            product,
-            callback: (_response) => {
-              setProducts((bef) => [_response, ...bef]);
-              handleClose();
-            },
-          });
+        product,
+        callback: (_response) => {
+          setProducts((bef) => [_response, ...bef]);
+          handleClose();
+        },
+      });
     }
-    
   };
 
   return (
