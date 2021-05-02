@@ -3,8 +3,10 @@ import { useFormik } from 'formik';
 import ContainerResponsive from '#Components/Container';
 import Input from '#Components/Input';
 import { LoginSchema } from '../../utils/schemas';
+import useSignIn from '#hooks/useSignIn';
 
 const SignIn = () => {
+  const { withEmail, withFacebook, withGoogle } = useSignIn();
   const { values, errors, handleSubmit, handleChange } = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema: LoginSchema,
@@ -46,14 +48,19 @@ const SignIn = () => {
           error={Boolean(errors.password)}
           helperText={errors.password}
         />
-        <Button type="submit" variant="contained" color="secondary">
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          onClick={() => withEmail(values.email, values.password)}
+        >
           Iniciar sesion
         </Button>
       </Box>
-      <Button variant="contained" color="secondary">
+      <Button variant="contained" color="secondary" onClick={withGoogle}>
         Ingresar con Google
       </Button>
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={withFacebook}>
         Ingresar con Facebook
       </Button>
     </ContainerResponsive>
