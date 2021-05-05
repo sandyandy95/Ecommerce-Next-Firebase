@@ -10,11 +10,15 @@ import {
   Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import { ExitToApp } from '@material-ui/icons';
+import { useContext } from 'react';
 import NextLink from '../components/NextLink';
 import useUser from '../hooks/useUser';
+import SessionContext from '#src/contexts/session/context';
 
 const DrawerNav = ({ routes, open, handleClose }) => {
   const { user } = useUser();
+  const { signOut } = useContext(SessionContext);
 
   return (
     <Drawer open={open} onClose={handleClose}>
@@ -38,6 +42,14 @@ const DrawerNav = ({ routes, open, handleClose }) => {
             </ListItem>
           </NextLink>
         ))}
+        {user.displayName && (
+          <ListItem button onClick={signOut}>
+            <ListItemIcon>
+              <ExitToApp />
+            </ListItemIcon>
+            <ListItemText primary={'Cerrar sesión'.toUpperCase()} />
+          </ListItem>
+        )}
       </List>
     </Drawer>
   );

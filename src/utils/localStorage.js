@@ -8,6 +8,13 @@ export const setLocalStorage = (key, value) => {
   }
 };
 
+export const clearLocalStorage = () => {
+  try {
+    window.localStorage.clear();
+  } catch (error) {
+    alert('Ocurrio un error boorando el local storage!!', e.message);
+  }
+};
 export const getLocalStorage = (key, initialValue) => {
   try {
     const value = window.localStorage.getItem(key);

@@ -5,7 +5,11 @@ import SessionReducer, { initialState as _initialState } from './reducer';
 import SessionContext from './context';
 import { sessionTypes } from '../types';
 import useSignIn from '#hooks/useSignIn';
-import { getLocalStorage, setLocalStorage } from '#src/utils/localStorage';
+import {
+  getLocalStorage,
+  setLocalStorage,
+  clearLocalStorage,
+} from '#src/utils/localStorage';
 import showSigninErrors from '#src/constants/signinErrors';
 
 const SessionState = ({ children }) => {
@@ -59,6 +63,7 @@ const SessionState = ({ children }) => {
     dispatch({
       type: sessionTypes.LOGOUT,
     });
+    clearLocalStorage();
     await _signOut();
   };
 

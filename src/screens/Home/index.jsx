@@ -1,13 +1,12 @@
 import { Box, Button, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import CardProduct from '#Components/Card';
 import ContainerResponsive from '#Components/Container';
 import useCart from '#hooks/useCart';
-import useProducts from '#hooks/useProducts';
 import useUser from '#hooks/useUser';
 
-const Home = () => {
+const Home = ({ products }) => {
   const { user } = useUser();
-  const { products } = useProducts();
   const { addProduct } = useCart();
   return (
     <ContainerResponsive>
@@ -40,5 +39,7 @@ const Home = () => {
     </ContainerResponsive>
   );
 };
-
+Home.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
 export default Home;
