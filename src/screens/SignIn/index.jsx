@@ -1,12 +1,13 @@
 import { Box, Button, Typography } from '@material-ui/core';
 import { useFormik } from 'formik';
+import { useContext } from 'react';
 import ContainerResponsive from '#Components/Container';
 import Input from '#Components/Input';
 import { LoginSchema } from '../../utils/schemas';
-import useSignIn from '#hooks/useSignIn';
+import SessionContext from '#src/contexts/session/context';
 
 const SignIn = () => {
-  const { withEmail, withFacebook, withGoogle } = useSignIn();
+  const { signIn } = useContext(SessionContext);
   const { values, errors, handleSubmit, handleChange } = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema: LoginSchema,
@@ -52,15 +53,23 @@ const SignIn = () => {
           type="submit"
           variant="contained"
           color="secondary"
-          onClick={() => withEmail(values.email, values.password)}
+          onClick={() => signIn('email', values.email, values.password)}
         >
           Iniciar sesion
         </Button>
       </Box>
-      <Button variant="contained" color="secondary" onClick={withGoogle}>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => signIn('google')}
+      >
         Ingresar con Google
       </Button>
-      <Button variant="contained" color="primary" onClick={withFacebook}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => signIn('facebook')}
+      >
         Ingresar con Facebook
       </Button>
     </ContainerResponsive>

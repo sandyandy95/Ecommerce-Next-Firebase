@@ -7,8 +7,8 @@ initFirebase();
 const auth = firebase.auth();
 const fbProvider = new firebase.auth.FacebookAuthProvider();
 fbProvider.addScope('email');
-fbProvider.addScope('user_birthday');
-fbProvider.addScope('user_friends'); // --> Debes pasar por un proceso de verificación
+// fbProvider.addScope('user_birthday');
+// fbProvider.addScope('user_friends'); // --> Debes pasar por un proceso de verificación
 
 export const signInWithFacebook = async () => {
   const authRecord = await auth.signInWithPopup(fbProvider);
