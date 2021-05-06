@@ -1,13 +1,27 @@
 import { Box, Button, Divider, Tooltip, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import useCart from '#hooks/useCart';
 
 const Resumen = ({ subtotal, sellers, totalProducts, onBuy }) => {
   const IVA = 0.12;
   const total = subtotal * (1 + IVA);
-  const sellersNames = sellers.reduce(
-    (acum, curr) => `${acum ? `${acum} - ` : ''} ${curr.name}`,
+  const valueIVA = subtotal * IVA;
+  const _sellers = new Set(
+    sellers.map(
+      (seller) =>
+        JSON.stringify({
+          displayName: seller.displayName,
+          uid: seller.uid,
+        })
+      // eslint-disable-next-line function-paren-newline
+    )
+  );
+  const _uniqueSellers = Array.from(_sellers).map((item) => JSON.parse(item));
+  const sellersNames = _uniqueSellers.reduce(
+    (acum, curr) => `${acum ? `${acum} - ` : ''} ${curr.displayName}`,
     ''
   );
+  const { clearCart } = useCart();
   const deliveryDate = new Date().toDateString();
   return (
     <Box component="section" p={4} position="sticky" top="56px">
@@ -25,12 +39,19 @@ const Resumen = ({ subtotal, sellers, totalProducts, onBuy }) => {
         <Typography>Subtotal</Typography>
         <Typography>{`$${subtotal}`}</Typography>
       </Box>
+      <Box display="flex" justifyContent="space-between">
+        <Typography>{`IVA ${IVA * 100}%`}</Typography>
+        <Typography>{`$${valueIVA.toFixed(2)}`}</Typography>
+      </Box>
       <Box display="flex" justifyContent="space-between" mb={4}>
         <Typography variant="h6">Total</Typography>
         <Typography variant="h6">{`$${total.toFixed(2)}`}</Typography>
       </Box>
       <Button variant="contained" color="primary" fullWidth onClick={onBuy}>
         Comprar
+      </Button>
+      <Button variant="text" color="primary" fullWidth onClick={clearCart}>
+        Vaciar carrito
       </Button>
     </Box>
   );

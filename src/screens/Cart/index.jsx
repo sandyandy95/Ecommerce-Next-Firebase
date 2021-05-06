@@ -5,7 +5,7 @@ import useCart from '#hooks/useCart';
 import Resumen from './sections/Resumen';
 
 const Cart = () => {
-  const { cartState, subtotal, sellers, removeProduct } = useCart();
+  const { products, subtotal, sellers, removeProduct } = useCart();
   const onBuy = () => {
     alert('Implementar la compra');
   };
@@ -23,7 +23,7 @@ const Cart = () => {
           flexWrap="wrap"
           justifyContent="space-evenly"
         >
-          {cartState.products.map((product) => (
+          {products.map((product) => (
             <CardProduct
               key={product.id}
               {...product}
@@ -42,7 +42,7 @@ const Cart = () => {
         <Grid item xs={12} sm={4}>
           <Resumen
             sellers={sellers}
-            totalProducts={cartState.products.length}
+            totalProducts={products.length}
             subtotal={subtotal}
             onBuy={onBuy}
           />
