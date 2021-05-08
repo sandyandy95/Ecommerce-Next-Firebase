@@ -1,53 +1,100 @@
+/* eslint-disable operator-linebreak */
 import { IconButton } from '@material-ui/core';
 import MUIDataTable from 'mui-datatables';
 import { Visibility } from '@material-ui/icons';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import ContainerResponsive from '#Components/Container';
 import useUsers from '#hooks/useUsers';
-import NextLink from '#Components/NextLink';
+import { OPTIONS_ROLES } from '#src/utils/constants';
+import EditModal from './Modal';
 
-const columns = [
+const columns = ({ handleOpen }) => [
   {
     name: 'uid',
     label: 'Acciones',
     options: {
       customBodyRender: (uid) => (
-        <NextLink href={`/admin/usuarios/${uid}/productos`}>
-          <IconButton>
-            <Visibility />
-          </IconButton>
-        </NextLink>
+        <IconButton onClick={() => handleOpen(uid)}>
+          <Visibility />
+        </IconButton>
       ),
     },
   },
   {
     name: 'displayName',
     label: 'Nombre',
+    options: {
+      customBodyRender: (value) => value || 'No definido',
+    },
+  },
+  {
+    name: 'email',
+    label: 'Correo electrónico',
+  },
+  {
+    name: 'role',
+    label: 'Rol',
+    options: {
+      customBodyRender: (value) =>
+        OPTIONS_ROLES.find((item) => item.value === value)?.label ||
+        'No definido',
+    },
   },
 ];
 
-const Users = () => {
-  const { users } = useUsers();
+const Users = ({ data }) => {
+  const { users, updateUser } = useUsers(data.users);
+  const [modal, setModal] = useState({
+    open: false,
+    selectedUser: {},
+  });
+  const handleOpen = (uid) => {
+    setModal({
+      open: true,
+      selectedUser: users.find((item) => item.uid === uid),
+    });
+  };
+  const handleClose = () =>
+    setModal({
+      open: false,
+      selectedUser: {},
+    });
+  const onSubmit = (values) => {
+    updateUser({ ...modal.selectedUser, ...values });
+  };
 
   return (
     <ContainerResponsive>
       <h1>Administrar Usuarios</h1>
 
       <MUIDataTable
-        title="Lista de usuarioss"
+        title="Lista de usuarios"
         data={users}
-        columns={columns}
+        columns={columns({ handleOpen })}
         options={{
           selectableRows: 'none',
           responsive: 'standard',
           serverSide: false,
           search: false,
-          filter: false,
+          filter: true,
           rowsPerPageOptions: [],
           selectableRowsHeader: false,
         }}
       />
+      <EditModal data={modal} handleClose={handleClose} onSubmit={onSubmit} />
     </ContainerResponsive>
   );
 };
+Users.propTypes = {
+  data: PropTypes.shape({
+    users: PropTypes.arrayOf(PropTypes.shape({})),
+  }),
+};
 
+Users.defaultProps = {
+  data: {
+    users: [],
+  },
+};
 export default Users;

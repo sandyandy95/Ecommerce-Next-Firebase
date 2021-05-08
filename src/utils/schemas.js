@@ -17,3 +17,8 @@ export const ProductSchema = Yup.object().shape({
     .required('Precio requerido')
     .min(0.1, 'Debes ingresar un precio válido'),
 });
+
+export const UserSchema = Yup.object().shape({
+  displayName: stringRequired('Nombre del usuario requerido'),
+  role: stringRequired('Rol requerido'),
+});
